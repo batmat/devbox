@@ -28,3 +28,8 @@
 
     - name: add zshrc file
       copy: src=files/zshrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.zshrc mode=644
+
+    - name: start and configure Docker
+      service: name=docker state=started
+      sudo: yes
+    - service: name=docker enabled=true
