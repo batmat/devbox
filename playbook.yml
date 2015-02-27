@@ -1,0 +1,30 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - include_vars: vaulted-variables.yml
+    - name: install packages
+      sudo: yes
+      yum: name={{ item }} state=installed
+      with_items:
+       - zsh
+       - docker
+       - git
+       - tree
+       - unzip
+       - vim
+    - name: configure git
+      shell: > 
+         git config --global user.email '{{ user.email }}' &&
+         git config --global user.name '{{ user.fullName }}'
+      changed_when: false
+
+    - name: set default shell to zsh
+      sudo: yes
+      user: name={{ user.name }} shell=/usr/bin/zsh state=present
+
+    - name: install oh-my-zsh
+      git: repo=https://github.com/robbyrussell/oh-my-zsh dest={{ user.home }}/.oh-my-zsh
+
+    - name: add zshrc file
+      copy: src=files/zshrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.zshrc mode=644

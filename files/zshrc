@@ -1,0 +1,27 @@
+ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="geoffgarside"
+
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+bindkey -v
+autoload -Uz compinit
+compinit
+COMPLETION_WAITING_DOTS="true"
+
+plugins=(git history-substring-search)
+source $ZSH/oh-my-zsh.sh
+
+export PATH=~/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+alias get='sudo yum install'
+alias search='sudo yum search'
+
+alias h='history'
+alias c='clear'
+
+alias d='docker'
+
+alias gs='git status'
+alias gl='git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit'
+
