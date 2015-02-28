@@ -14,6 +14,20 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH=~/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
+# some git aliases from zsh git plugin are provided, I prefer to customize them entirely
+unalias -m "*"
+
+alias ...=../..
+alias ....=../../..
+alias .....=../../../..
+alias ......=../../../../..
+
+alias la='ls -lAh'
+alias ll='ls -lh'
+alias ls='ls --color=tty'
+
+alias vi="vim"
+
 alias get='sudo yum install'
 alias search='sudo yum search'
 
@@ -25,5 +39,7 @@ alias dl='docker ps -l -q'
 alias dclean='docker rm $(docker ps -a -q)'
 
 alias gs='git status'
-alias gl='git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit'
+alias gwip='git add -A; git ls-files --deleted -z | xargs -r0 git rm; git commit -m "--wip--"'
+alias gpr='git'
+alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 
