@@ -3,6 +3,38 @@
   connection: local
   tasks:
     - include_vars: vaulted-variables.yml
+
+###############################################################################################
+# MiPih 
+#
+    - name: i am at mipih ?
+      shell: "ping -c1 -i 0.2 {{ proxy.host }}"
+      register: i_am_at_mipih
+      ignore_errors: yes
+      changed_when: false
+
+    - name: check if mipih settings must be enabled
+      set_fact: at_mipih={{ true if i_am_at_mipih.rc == 0 else false }}
+
+    - debug: var=at_mipih
+
+
+###############################################################################################
+# yum configuration
+#
+    - name: mipih - add yum conf file
+      template: src=files/yum-mipih.conf owner=root group=root dest=/etc/yum.conf mode=644
+      sudo: yes
+      when: at_mipih == true
+
+    - name: restore default yum.conf if not mipih settings
+      template: src=files/yum-default.conf owner=root group=root dest=/etc/yum.conf mode=644
+      sudo: yes
+      when: at_mipih == false
+
+###############################################################################################
+# install packages
+#
     - name: install packages
       sudo: yes
       yum: name={{ item }} state=installed
@@ -13,6 +45,10 @@
        - tree
        - unzip
        - vim
+
+###############################################################################################
+# tools settings
+#
     - name: configure git
       shell: > 
          git config --global user.email '{{ user.email }}' &&
@@ -25,10 +61,19 @@
 
     - name: install oh-my-zsh
       git: repo=https://github.com/robbyrussell/oh-my-zsh dest={{ user.home }}/.oh-my-zsh
+      when: at_mipih == false
+
+    - name: install oh-my-zsh (mipih)
+      git: repo=https://github.com/robbyrussell/oh-my-zsh dest={{ user.home }}/.oh-my-zsh
+      environment: proxy_env
+      when: at_mipih == true
 
     - name: add zshrc file
       copy: src=files/zshrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.zshrc mode=644
 
+###############################################################################################
+# docker 
+#
     - name: start and configure Docker
       service: name=docker state=started
       sudo: yes
