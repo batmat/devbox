@@ -1,36 +1,40 @@
 ---
 - hosts: 127.0.0.1
   connection: local
+  vars: 
+    proxy_env: ""
   tasks:
-    - include_vars: vaulted-variables.yml
+    - include_vars: common-vars.yml.vault
 
 ###############################################################################################
-# MiPih 
+# Work part
 #
-    - name: i am at mipih ?
+    - name: at work ?
       shell: "ping -c1 -i 0.2 {{ proxy.host }}"
-      register: i_am_at_mipih
+      register: i_am_at_work
       ignore_errors: yes
       changed_when: false
 
-    - name: check if mipih settings must be enabled
-      set_fact: at_mipih={{ true if i_am_at_mipih.rc == 0 else false }}
+    - name: check if I'm at work
+      set_fact: at_work={{ true if i_am_at_work.rc == 0 else false }}
 
-    - debug: var=at_mipih
+    - debug: var=at_work
 
+    - include_vars: work-vars.yml.vault
+      when: at_work == true
 
 ###############################################################################################
 # yum configuration
 #
-    - name: mipih - add yum conf file
+    - name: add yum conf file (work settings)
       template: src=files/yum-mipih.conf owner=root group=root dest=/etc/yum.conf mode=644
       sudo: yes
-      when: at_mipih == true
+      when: at_work == true
 
-    - name: restore default yum.conf if not mipih settings
+    - name: add yum conf file (home settings)
       template: src=files/yum-default.conf owner=root group=root dest=/etc/yum.conf mode=644
       sudo: yes
-      when: at_mipih == false
+      when: at_work == false
 
 ###############################################################################################
 # install packages
@@ -45,6 +49,7 @@
        - tree
        - unzip
        - vim
+       - vagrant  
 
 ###############################################################################################
 # tools settings
@@ -59,17 +64,12 @@
       sudo: yes
       user: name={{ user.name }} shell=/usr/bin/zsh state=present
 
-    - name: install oh-my-zsh
-      git: repo=https://github.com/robbyrussell/oh-my-zsh dest={{ user.home }}/.oh-my-zsh
-      when: at_mipih == false
-
-    - name: install oh-my-zsh (mipih)
+    - name: install oh-my-zsh 
       git: repo=https://github.com/robbyrussell/oh-my-zsh dest={{ user.home }}/.oh-my-zsh
       environment: proxy_env
-      when: at_mipih == true
 
     - name: add zshrc file
-      copy: src=files/zshrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.zshrc mode=644
+      template: src=files/zshrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.zshrc mode=644
 
 ###############################################################################################
 # docker 
