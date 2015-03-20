@@ -46,6 +46,29 @@
        - vagrant  
 
 ###############################################################################################
+# ssh configuration
+#
+    - include_vars: sshconfig.vault
+
+    - name: remove current ssh config file
+      file: 
+          path="{{ user.home }}/.ssh/config"
+          state=absent
+      changed_when: false
+    - name: generate ~/.ssh/config
+      lineinfile: 
+          dest="{{ user.home }}/.ssh/config"
+          line="{{ item.value }}"
+          state=present
+          insertafter=EOF
+          create=yes
+          owner="{{ user.name }}"
+          group="{{ user.name }}"
+          mode=0700
+      with_dict: sshconfig.hosts
+      changed_when: false
+
+###############################################################################################
 # tools settings
 #
     - name: configure git
