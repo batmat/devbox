@@ -51,8 +51,8 @@ alias resetenv='{{ resetenv_path }}/resetenv'
 export http_proxy='http://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
 export https_proxy='https://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
 export no_proxy='127.0.0.1,docker-registry,.mipih.fr,.mipih.net'
-{% endif %}
-
+{% endif %}	
+	
 unsetproxy() {
 	unset http_proxy
 	unset https_proxy

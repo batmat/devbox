@@ -2,7 +2,8 @@
 - hosts: 127.0.0.1
   connection: local
   vars: 
-    proxy_env: ""
+    proxy_env: 
+      empty: "proxy"
   tasks:
     - include_vars: common-vars.yml.vault
 
