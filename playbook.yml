@@ -26,15 +26,9 @@
 ###############################################################################################
 # yum configuration
 #
-    - name: add yum conf file (work settings)
-      template: src=files/yum-mipih.conf owner=root group=root dest=/etc/yum.conf mode=644
+    - name: add yum conf file 
+      template: src=files/yum.conf owner=root group=root dest=/etc/yum.conf mode=644
       sudo: yes
-      when: at_work == true
-
-    - name: add yum conf file (home settings)
-      template: src=files/yum-default.conf owner=root group=root dest=/etc/yum.conf mode=644
-      sudo: yes
-      when: at_work == false
 
 ###############################################################################################
 # install packages
