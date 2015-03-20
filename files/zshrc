@@ -58,4 +58,7 @@ unsetproxy() {
 	unset https_proxy
 }
 
+if [ -f ~/.myzhrc ]; then
+  source ~/.myzhrc
+fi
 
