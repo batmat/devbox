@@ -1,0 +1,96 @@
+- include_vars: common-vars.yml.vault
+
+###############################################################################################
+# Work part
+#
+- name: at work ?
+  shell: "ping -c1 -i 0.2 {{ proxy.host }}"
+  register: i_am_at_work
+  ignore_errors: yes
+  changed_when: false
+
+- name: check if I'm at work
+  set_fact: at_work={{ true if i_am_at_work.rc == 0 else false }}
+
+- debug: var=at_work
+
+- include_vars: work-vars.yml.vault
+  when: at_work == true
+
+###############################################################################################
+# yum configuration
+#
+- name: add yum conf file 
+  template: src=yum.conf owner=root group=root dest=/etc/yum.conf mode=644
+  sudo: yes
+
+###############################################################################################
+# install packages
+#
+- name: install packages
+  sudo: yes
+  yum: name={{ item }} state=installed
+  with_items:
+   - zsh
+   - docker
+   - git
+   - tree
+   - unzip
+   - vim
+   - vagrant  
+
+###############################################################################################
+# ssh configuration
+#
+- include_vars: sshconfig.yml.vault
+
+- name: remove current ssh config file
+  file: 
+      path="{{ user.home }}/.ssh/config"
+      state=absent
+  changed_when: false
+- name: generate ~/.ssh/config
+  lineinfile: 
+      dest="{{ user.home }}/.ssh/config"
+      line="{{ item.value }}"
+      state=present
+      insertafter=EOF
+      create=yes
+      owner="{{ user.name }}"
+      group="{{ user.name }}"
+      mode=0700
+  with_dict: sshconfig.hosts
+  changed_when: false
+
+###############################################################################################
+# tools settings
+#
+- name: configure git
+  shell: > 
+     git config --global user.email '{{ user.email }}' &&
+     git config --global user.name '{{ user.fullName }}'
+  changed_when: false
+
+- name: set default shell to zsh
+  sudo: yes
+  user: name={{ user.name }} shell=/usr/bin/zsh state=present
+
+- name: install oh-my-zsh 
+  git: repo=https://github.com/robbyrussell/oh-my-zsh dest={{ user.home }}/.oh-my-zsh
+  environment: proxy_env
+
+- name: add zshrc file
+  template: src=zshrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.zshrc mode=644
+
+###############################################################################################
+# docker 
+#
+- name: Docker config file
+  template: src=docker-config owner=root group=root dest=/etc/sysconfig/docker
+  sudo: yes
+  notify:
+   - restart docker
+- name: start and configure Docker
+  service: name=docker state=started
+  sudo: yes
+- service: name=docker enabled=true
