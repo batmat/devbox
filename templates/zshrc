@@ -50,7 +50,7 @@ alias resetenv='{{ resetenv_path }}/resetenv'
 {% if at_work == true %}  
 export http_proxy='http://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
 export https_proxy='https://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
-export no_proxy='127.0.0.1,docker-registry,.mipih.fr,.mipih.net'
+export no_proxy='127.0.0.1,docker-registry,.mipih.fr,.mipih.net,/var/run/docker.sock'
 {% endif %}	
 	
 unsetproxy() {
