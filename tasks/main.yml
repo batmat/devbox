@@ -1,4 +1,5 @@
 - include_vars: common-vars.yml.vault
+  tags: fast
 
 ###############################################################################################
 # Work part
@@ -8,20 +9,24 @@
   register: i_am_at_work
   ignore_errors: yes
   changed_when: false
+  tags: fast
 
 - name: check if I'm at work
   set_fact: at_work={{ true if i_am_at_work.rc == 0 else false }}
+  tags: fast
 
 - debug: var=at_work
 
 - include_vars: work-vars.yml.vault
   when: at_work == true
+  tags: fast
 
 ###############################################################################################
 # yum configuration
 #
 - name: add yum conf file 
   template: src=yum.conf owner=root group=root dest=/etc/yum.conf mode=644
+  tags: fast
   sudo: yes
 
 ###############################################################################################
@@ -49,6 +54,7 @@
       path="{{ user.home }}/.ssh/config"
       state=absent
   changed_when: false
+
 - name: generate ~/.ssh/config
   lineinfile: 
       dest="{{ user.home }}/.ssh/config"
@@ -70,6 +76,7 @@
      git config --global user.email '{{ user.email }}' &&
      git config --global user.name '{{ user.fullName }}'
   changed_when: false
+  tags: fast
 
 - name: set default shell to zsh
   sudo: yes
@@ -81,6 +88,7 @@
 
 - name: add zshrc file
   template: src=zshrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.zshrc mode=644
+  tags: fast
 
 ###############################################################################################
 # docker 
@@ -90,7 +98,11 @@
   sudo: yes
   notify:
    - restart docker
+  tags: fast
+
 - name: start and configure Docker
   service: name=docker state=started
   sudo: yes
+  tags: fast
+  
 - service: name=docker enabled=true
