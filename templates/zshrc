@@ -28,8 +28,8 @@ alias ls='ls --color=tty'
 
 alias vi="vim"
 
-alias get='sudo yum install'
-alias search='sudo yum search'
+alias get='sudo dnf install'
+alias search='sudo dnf search'
 
 alias h='history'
 alias c='clear'

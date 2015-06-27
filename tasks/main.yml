@@ -22,10 +22,10 @@
   tags: fast
 
 ###############################################################################################
-# yum configuration
+# dnf configuration
 #
-- name: add yum conf file 
-  template: src=yum.conf owner=root group=root dest=/etc/yum.conf mode=644
+- name: add dnf conf file 
+  template: src=dnf.conf owner=root group=root dest=/etc/dnf/dnf.conf mode=644
   tags: fast
   sudo: yes
 
@@ -34,7 +34,7 @@
 #
 - name: install packages
   sudo: yes
-  yum: name={{ item }} state=installed
+  dnf: name={{ item }} state=installed
   with_items:
    - zsh
    - docker
