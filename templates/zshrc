@@ -47,6 +47,8 @@ alias lb='mvn clean install -DskipTests -Dinvoker.skip=true'
 
 alias resetenv='{{ resetenv_path }}/resetenv'
 
+export GOPATH={{ user.home }}/workspace-go
+
 {% if at_work == true %}  
 export http_proxy='http://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
 export https_proxy='https://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
