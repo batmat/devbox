@@ -90,6 +90,10 @@
   template: src=zshrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.zshrc mode=644
   tags: fast
 
+- name: SublimeText2 configuration
+  template: src=sublime-text-eclipse-style owner={{ user.name }} group={{ user.name }} dest="{{ user.home }}/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap" mode=664
+  tags: fast
+
 ###############################################################################################
 # docker 
 #
