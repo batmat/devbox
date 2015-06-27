@@ -49,6 +49,9 @@ alias resetenv='{{ resetenv_path }}/resetenv'
 
 export GOPATH={{ user.home }}/workspace-go
 
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0
+export PATH=$JAVA_HOME/bin:$PATH
+
 {% if at_work == true %}  
 export http_proxy='http://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
 export https_proxy='https://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
