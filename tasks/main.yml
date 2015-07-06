@@ -62,6 +62,7 @@
    - kernel-devel
    - golang
    - java-1.8.0-openjdk-devel
+   - groovy
    - ntpdate
    - rubygem-asciidoctor
    - keepass
