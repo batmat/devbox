@@ -63,6 +63,10 @@
    - golang
    - java-1.8.0-openjdk-devel
    - rubygem-asciidoctor
+   - gimp
+   - ImageMagick
+   - audacity
+   - vlc
 ###############################################################################################
 # ssh configuration
 #
