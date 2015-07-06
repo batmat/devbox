@@ -1,6 +1,9 @@
 - include_vars: common-vars.yml.vault
   tags: fast
 
+- name: Check that the current machine is a Fedora 22
+  assert: { that: "ansible_distribution == 'Fedora' and ansible_distribution_version == '22'" }
+
 ###############################################################################################
 # Work part
 #
