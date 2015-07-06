@@ -128,8 +128,21 @@
   shell: apm install asciidoc-preview
   environment: proxy_env
 
+- name: Install Atom Asciidoctor Eclipse Keybindings package
+  shell: apm install eclipse-keybindings
+  environment: proxy_env
+
 ###############################################################################################
-# docker 
+# Maven
+
+- name: Make sure .m2 directory exists
+  file: path="{{ ansible_env.HOME }}/.m2" state=directory mode=0755
+
+- name: Setting up corporate Maven Settings
+  template: src=mavensettings.xml dest={{ ansible_env.HOME }}/.m2/settings.xml
+
+###############################################################################################
+# Docker
 #
 - name: Docker config file
   template: src=docker-config owner=root group=root dest=/etc/sysconfig/docker
