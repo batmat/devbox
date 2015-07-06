@@ -113,6 +113,16 @@
   template: src=sublime-text-eclipse-style owner={{ user.name }} group={{ user.name }} dest="{{ user.home }}/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap" mode=664
   tags: fast
 
+- name: Download Atom Text Editor
+  get_url: url=http://atom.io/download/rpm dest=/tmp/atom.rpm
+  environment: proxy_env
+  tags: atom
+
+- name: Install Atom Text Editor
+  sudo: yes
+  dnf: name=/tmp/atom.rpm state=present
+  tags: atom
+
 ###############################################################################################
 # docker 
 #
