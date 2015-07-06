@@ -50,6 +50,9 @@
    - zsh
    - docker
    - git
+   - git-svn
+   - git-gui
+   - subversion
    - tree
    - unzip
    - vim
