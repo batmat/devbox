@@ -87,6 +87,11 @@
 ###############################################################################################
 # tools settings
 #
+
+- name: Clone JEnv
+  git: repo=https://github.com/gcuisinier/jenv.git  dest="{{ user.home }}/.jenv"
+  environment: proxy_env
+
 - name: configure git
   shell: > 
      git config --global user.email '{{ user.email }}' &&
