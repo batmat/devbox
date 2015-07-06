@@ -32,6 +32,17 @@
 ###############################################################################################
 # install packages
 #
+
+- name: Install RPMFusion free repository
+  sudo: yes
+  dnf: name=http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-22.noarch.rpm state=present
+  environment: proxy_env
+
+- name: Install RPMFusion non-free repository
+  sudo: yes
+  dnf: name=http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-22.noarch.rpm state=present
+  environment: proxy_env
+
 - name: install packages
   sudo: yes
   dnf: name={{ item }} state=installed
