@@ -56,6 +56,7 @@
    - vagrant  
    - golang
    - java-1.8.0-openjdk-devel
+   - rubygem-asciidoctor
 ###############################################################################################
 # ssh configuration
 #
@@ -122,6 +123,10 @@
   sudo: yes
   dnf: name=/tmp/atom.rpm state=present
   tags: atom
+
+- name: Install Atom Asciidoctor Preview package
+  shell: apm install asciidoc-preview
+  environment: proxy_env
 
 ###############################################################################################
 # docker 
