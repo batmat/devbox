@@ -68,12 +68,17 @@
    - groovy
    - ntpdate
    - rubygem-asciidoctor
+   # Personal
+   - kphotoalbum
+   - grisbi
    - keepass
    - gimp
    - ImageMagick
    - baobab
    - audacity
    - vlc
+   - ffmpegthumbs
+   - kde-partitionmanager
 ###############################################################################################
 # ssh configuration
 #
