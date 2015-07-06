@@ -62,9 +62,11 @@
    - kernel-devel
    - golang
    - java-1.8.0-openjdk-devel
+   - ntpdate
    - rubygem-asciidoctor
    - gimp
    - ImageMagick
+   - baobab
    - audacity
    - vlc
 ###############################################################################################
