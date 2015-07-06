@@ -54,6 +54,9 @@
    - unzip
    - vim
    - vagrant  
+   - vagrant-libvirt
+   - VirtualBox
+   - kernel-devel
    - golang
    - java-1.8.0-openjdk-devel
    - rubygem-asciidoctor
@@ -167,3 +170,18 @@
   sudo: yes
   file: path=/usr/local/bin/docker-machine state=file mode="u+rx,a+x,g+x"
 
+###############################################################################################
+# VirtualBox
+#
+
+# Installing the typical 'kmod-VirtualBox' package through dnf won't work because it has to be
+# aligned/republished with the latest kernel and it rarely is.
+- name: Configure kernel module for VirtualBox
+  sudo: yes
+  shell:  'akmods --kernel $( uname -r )'
+  tags: VirtualBox
+
+- name: Configure kernel module for VirtualBox
+  sudo: yes
+  shell: systemctl restart systemd-modules-load.service
+  tags: VirtualBox
