@@ -64,6 +64,7 @@
    - java-1.8.0-openjdk-devel
    - ntpdate
    - rubygem-asciidoctor
+   - keepass
    - gimp
    - ImageMagick
    - baobab
