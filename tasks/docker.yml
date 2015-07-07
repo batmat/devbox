@@ -35,5 +35,3 @@
 - name: Make Docker Machine executable
   sudo: yes
   file: path=/usr/local/bin/docker-machine state=file mode="u+rx,a+x,g+x"
-
-- service: name=docker enabled=true
