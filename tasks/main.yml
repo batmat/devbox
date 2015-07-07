@@ -57,8 +57,7 @@
    - subversion
    - tree
    - unzip
-   - vim
-   - vagrant  
+   - vagrant
    - vagrant-libvirt
    - VirtualBox
    - kernel-devel
