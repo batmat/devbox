@@ -27,7 +27,7 @@
 ###############################################################################################
 # dnf configuration
 #
-- name: add dnf conf file 
+- name: add dnf conf file
   template: src=dnf.conf owner=root group=root dest=/etc/dnf/dnf.conf mode=644
   tags: fast
   sudo: yes
@@ -85,13 +85,13 @@
 - include_vars: sshconfig.yml.vault
 
 - name: remove current ssh config file
-  file: 
+  file:
       path="{{ user.home }}/.ssh/config"
       state=absent
   changed_when: false
 
 - name: generate ~/.ssh/config
-  lineinfile: 
+  lineinfile:
       dest="{{ user.home }}/.ssh/config"
       line="{{ item.value }}"
       state=present
@@ -112,7 +112,7 @@
   environment: proxy_env
 
 - name: configure git
-  shell: > 
+  shell: >
      git config --global user.email '{{ user.email }}' &&
      git config --global user.name '{{ user.fullName }}'
   changed_when: false
@@ -122,7 +122,7 @@
   sudo: yes
   user: name={{ user.name }} shell=/usr/bin/zsh state=present
 
-- name: install oh-my-zsh 
+- name: install oh-my-zsh
   git: repo=https://github.com/robbyrussell/oh-my-zsh dest={{ user.home }}/.oh-my-zsh
   environment: proxy_env
 
