@@ -103,6 +103,9 @@
   with_dict: sshconfig.hosts
   changed_when: false
 
+- name: Set Git autosquash true globally (todo => idempotentize)
+  shell: git config --global rebase.autosquash true
+
 ###############################################################################################
 # tools settings
 #
