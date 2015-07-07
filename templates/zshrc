@@ -63,9 +63,9 @@ export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 
 {% if at_work == true %}
-export http_proxy='http://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
-export https_proxy='https://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
-export no_proxy='127.0.0.1,docker-registry,.mipih.fr,.mipih.net,/var/run/docker.sock'
+export http_proxy='{{ proxy_env.http_proxy }}'
+export https_proxy='{{ proxy_env.https_proxy }}'
+export no_proxy='{{ proxy_env.no_proxy }}'
 {% endif %}
 
 unsetproxy() {
