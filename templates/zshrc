@@ -38,6 +38,7 @@ alias d='docker'
 alias dl='docker ps -l -q'
 alias dclean='docker rm $(docker ps -a -q)'
 alias dm='docker-machine'
+alias swarm='docker run swarm'
 
 alias gs='git status'
 alias gwip='git add -A; git ls-files --deleted -z | xargs -r0 git rm; git commit -m "--wip--"'
