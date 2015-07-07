@@ -1,7 +1,18 @@
+- name: Check standard docker package is *not* installed
+  sudo: yes
+  dnf: name=docker state=absent
+
+- name: Install Docker Package from Docker Inc
+  sudo: yes
+  dnf: name=https://get.docker.com/rpm/1.7.0/fedora-22/RPMS/x86_64/docker-engine-1.7.0-1.fc22.x86_64.rpm state=present
+  environment: proxy_env
+
 - name: Create a docker group
+  sudo: yes
   group: name=docker state=present
 
 - name: Add the current user to the docker group
+  sudo: yes
   user: name="{{ user.name }}" groups=docker append=yes
 
 - name: Docker config file
