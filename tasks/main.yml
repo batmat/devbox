@@ -181,28 +181,7 @@
 ###############################################################################################
 # Docker
 #
-- name: Docker config file
-  template: src=docker-config owner=root group=root dest=/etc/sysconfig/docker
-  sudo: yes
-  notify:
-   - restart docker
-  tags: fast
-
-- name: start and configure Docker
-  service: name=docker state=started
-  sudo: yes
-  tags: fast
-
-- service: name=docker enabled=true
-
-- name: Install Docker machine
-  sudo: yes
-  get_url: url=https://github.com/docker/machine/releases/download/v0.3.0/docker-machine_linux-amd64 dest=/usr/local/bin/docker-machine
-  environment: proxy_env
-
-- name: Make Docker Machine executable
-  sudo: yes
-  file: path=/usr/local/bin/docker-machine state=file mode="u+rx,a+x,g+x"
+- include: docker.yml
 
 ###############################################################################################
 # VirtualBox
