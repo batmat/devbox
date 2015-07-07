@@ -144,6 +144,13 @@
   template: src=sublime-text-eclipse-style owner={{ user.name }} group={{ user.name }} dest="{{ user.home }}/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap" mode=664
   tags: fast
 
+- name: Setting up proxy for SublimeText Package Control Plugin
+  template:
+    src=templates/PackageControl.sublime-settings
+    dest="{{ ansible_env.HOME }}/.config/sublime-text-3/Packages/User/Package Control.sublime-settings"
+  tags:
+    - fast
+
 - name: Download Atom Text Editor
   get_url: url=http://atom.io/download/rpm dest=/tmp/atom.rpm
   environment: proxy_env

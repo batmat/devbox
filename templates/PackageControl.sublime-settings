@@ -1,0 +1,11 @@
+{
+{% if at_work == true %}
+	"http_proxy": "http://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}",
+	"https_proxy": "http://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}",
+{% endif %}
+	"installed_packages":
+	[
+		"EditorConfig",
+		"SublimeLinter-shellcheck"
+	]
+}
