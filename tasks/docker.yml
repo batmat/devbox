@@ -15,9 +15,16 @@
   sudo: yes
   user: name="{{ user.name }}" groups=docker append=yes
 
-- name: Docker config file
-  template: src=docker-config owner=root group=root dest=/etc/sysconfig/docker
+- name: Docker systemd configuration
   sudo: yes
+  template: src=docker-systemd-config owner=root group=root dest=/usr/lib/systemd/system/docker.service
+  notify:
+   - restart docker
+  tags: fast
+
+- name: Docker config file
+  sudo: yes
+  template: src=docker-sysconfig owner=root group=root dest=/etc/sysconfig/docker
   notify:
    - restart docker
   tags: fast
