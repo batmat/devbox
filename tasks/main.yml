@@ -1,6 +1,9 @@
 - include_vars: common-vars.yml.vault
   tags: fast
 
+- name: Check that the current machine is a Fedora 22
+  assert: { that: "ansible_distribution == 'Fedora' and ansible_distribution_version == '22'" }
+
 ###############################################################################################
 # Work part
 #
@@ -24,7 +27,7 @@
 ###############################################################################################
 # dnf configuration
 #
-- name: add dnf conf file 
+- name: add dnf conf file
   template: src=dnf.conf owner=root group=root dest=/etc/dnf/dnf.conf mode=644
   tags: fast
   sudo: yes
@@ -32,32 +35,62 @@
 ###############################################################################################
 # install packages
 #
+
+- name: Install RPMFusion free repository
+  sudo: yes
+  dnf: name=http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-22.noarch.rpm state=present
+  environment: proxy_env
+
+- name: Install RPMFusion non-free repository
+  sudo: yes
+  dnf: name=http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-22.noarch.rpm state=present
+  environment: proxy_env
+
 - name: install packages
   sudo: yes
-  dnf: name={{ item }} state=installed
+  dnf: name={{ item }} state=present
   with_items:
    - zsh
-   - docker
    - git
+   - git-svn
+   - git-gui
+   - subversion
    - tree
    - unzip
    - vim
    - vagrant  
+   - vagrant-libvirt
+   - VirtualBox
+   - kernel-devel
    - golang
    - java-1.8.0-openjdk-devel
+   - groovy
+   - ntpdate
+   - rubygem-asciidoctor
+   # Personal
+   - kphotoalbum
+   - grisbi
+   - keepass
+   - gimp
+   - ImageMagick
+   - baobab
+   - audacity
+   - vlc
+   - ffmpegthumbs
+   - kde-partitionmanager
 ###############################################################################################
 # ssh configuration
 #
 - include_vars: sshconfig.yml.vault
 
 - name: remove current ssh config file
-  file: 
+  file:
       path="{{ user.home }}/.ssh/config"
       state=absent
   changed_when: false
 
 - name: generate ~/.ssh/config
-  lineinfile: 
+  lineinfile:
       dest="{{ user.home }}/.ssh/config"
       line="{{ item.value }}"
       state=present
@@ -69,11 +102,19 @@
   with_dict: sshconfig.hosts
   changed_when: false
 
+- name: Set Git autosquash true globally (todo => idempotentize)
+  shell: git config --global rebase.autosquash true
+
 ###############################################################################################
 # tools settings
 #
+
+- name: Clone JEnv
+  git: repo=https://github.com/gcuisinier/jenv.git  dest="{{ user.home }}/.jenv"
+  environment: proxy_env
+
 - name: configure git
-  shell: > 
+  shell: >
      git config --global user.email '{{ user.email }}' &&
      git config --global user.name '{{ user.fullName }}'
   changed_when: false
@@ -83,7 +124,7 @@
   sudo: yes
   user: name={{ user.name }} shell=/usr/bin/zsh state=present
 
-- name: install oh-my-zsh 
+- name: install oh-my-zsh
   git: repo=https://github.com/robbyrussell/oh-my-zsh dest={{ user.home }}/.oh-my-zsh
   environment: proxy_env
 
@@ -91,23 +132,68 @@
   template: src=zshrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.zshrc mode=644
   tags: fast
 
-- name: SublimeText2 configuration
-  template: src=sublime-text-eclipse-style owner={{ user.name }} group={{ user.name }} dest="{{ user.home }}/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap" mode=664
+- name: Get Sublime Text 3
+  get_url: url="http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3083_x64.tar.bz2" dest=/tmp/sublime_text_3_build_3083_x64.tar.bz2
+  environment: proxy_env
+
+- name: Uncompress Sublime under the .tools directory
+  unarchive: src=/tmp/sublime_text_3_build_3083_x64.tar.bz2 dest="{{ user.home }}/.tools/"
+
+- name: SublimeText3 configuration
+  template: src=sublime-text-eclipse-style owner={{ user.name }} group={{ user.name }} dest="{{ user.home }}/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap" mode=664
   tags: fast
+
+- name: Setting up proxy for SublimeText Package Control Plugin
+  template:
+    src=templates/PackageControl.sublime-settings
+    dest="{{ ansible_env.HOME }}/.config/sublime-text-3/Packages/User/Package Control.sublime-settings"
+  tags:
+    - fast
+
+- name: Download Atom Text Editor
+  get_url: url=http://atom.io/download/rpm dest=/tmp/atom.rpm
+  environment: proxy_env
+  tags: atom
+
+- name: Install Atom Text Editor
+  sudo: yes
+  dnf: name=/tmp/atom.rpm state=present
+  tags: atom
+
+- name: Install Atom Asciidoctor Preview package
+  shell: apm install asciidoc-preview
+  environment: proxy_env
+
+- name: Install Atom Asciidoctor Eclipse Keybindings package
+  shell: apm install eclipse-keybindings
+  environment: proxy_env
 
 ###############################################################################################
-# docker 
-#
-- name: Docker config file
-  template: src=docker-config owner=root group=root dest=/etc/sysconfig/docker
-  sudo: yes
-  notify:
-   - restart docker
-  tags: fast
+# Maven
 
-- name: start and configure Docker
-  service: name=docker state=started
+- name: Make sure .m2 directory exists
+  file: path="{{ ansible_env.HOME }}/.m2" state=directory mode=0755
+
+- name: Setting up corporate Maven Settings
+  template: src=mavensettings.xml dest={{ ansible_env.HOME }}/.m2/settings.xml
+
+###############################################################################################
+# Docker
+#
+- include: docker.yml
+
+###############################################################################################
+# VirtualBox
+#
+
+# Installing the typical 'kmod-VirtualBox' package through dnf won't work because it has to be
+# aligned/republished with the latest kernel and it rarely is.
+- name: Configure kernel module for VirtualBox
   sudo: yes
-  tags: fast
-  
-- service: name=docker enabled=true
+  shell:  'akmods --kernel $( uname -r )'
+  tags: VirtualBox
+
+- name: Configure kernel module for VirtualBox
+  sudo: yes
+  shell: systemctl restart systemd-modules-load.service
+  tags: VirtualBox

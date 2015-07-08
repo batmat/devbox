@@ -1,0 +1,37 @@
+- name: Check standard docker package is *not* installed
+  sudo: yes
+  dnf: name=docker state=absent
+
+- name: Install Docker Package from Docker Inc
+  sudo: yes
+  dnf: name=https://get.docker.com/rpm/1.7.0/fedora-22/RPMS/x86_64/docker-engine-1.7.0-1.fc22.x86_64.rpm state=present
+  environment: proxy_env
+
+- name: Create a docker group
+  sudo: yes
+  group: name=docker state=present
+
+- name: Add the current user to the docker group
+  sudo: yes
+  user: name="{{ user.name }}" groups=docker append=yes
+
+- name: Docker config file
+  template: src=docker-config owner=root group=root dest=/etc/sysconfig/docker
+  sudo: yes
+  notify:
+   - restart docker
+  tags: fast
+
+- name: start and configure Docker
+  service: name=docker state=started
+  sudo: yes
+  tags: fast
+
+- name: Install Docker machine
+  sudo: yes
+  get_url: url=https://github.com/docker/machine/releases/download/v0.3.0/docker-machine_linux-amd64 dest=/usr/local/bin/docker-machine
+  environment: proxy_env
+
+- name: Make Docker Machine executable
+  sudo: yes
+  file: path=/usr/local/bin/docker-machine state=file mode="u+rx,a+x,g+x"

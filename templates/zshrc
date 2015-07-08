@@ -9,7 +9,7 @@ autoload -Uz compinit
 compinit
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git history-substring-search)
+plugins=(git history-substring-search docker mvn lol)
 source $ZSH/oh-my-zsh.sh
 
 export PATH=~/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -37,6 +37,7 @@ alias c='clear'
 alias d='docker'
 alias dl='docker ps -l -q'
 alias dclean='docker rm $(docker ps -a -q)'
+alias dm='docker-machine'
 
 alias gs='git status'
 alias gwip='git add -A; git ls-files --deleted -z | xargs -r0 git rm; git commit -m "--wip--"'
@@ -46,18 +47,33 @@ alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %
 alias lb='mvn clean install -DskipTests -Dinvoker.skip=true'
 
 alias resetenv='{{ resetenv_path }}/resetenv'
+alias r=resetenv
+
+export PATH=~/.tools/sublime_text_3:$PATH
+alias s='sublime_text'
+alias sub='sublime_text'
+alias a='atom'
 
 export GOPATH={{ user.home }}/workspace-go
 
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0
 export PATH=$JAVA_HOME/bin:$PATH
 
-{% if at_work == true %}  
-export http_proxy='http://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
-export https_proxy='https://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
-export no_proxy='127.0.0.1,docker-registry,.mipih.fr,.mipih.net,/var/run/docker.sock'
-{% endif %}	
-	
+# JEnv config -- see http://www.jenv.be/
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+{% if at_work == true %}
+export MODE='MiPih'
+export http_proxy='{{ proxy_env.http_proxy }}'
+export https_proxy='{{ proxy_env.https_proxy }}'
+export no_proxy='{{ proxy_env.no_proxy }}'
+{% else %}
+export MODE='HOME'
+{% endif %}
+
+export PS1="[$MODE] $PS1"
+
 unsetproxy() {
 	unset http_proxy
 	unset https_proxy
@@ -66,4 +82,3 @@ unsetproxy() {
 if [ -f ~/.myzhrc ]; then
   source ~/.myzhrc
 fi
-
