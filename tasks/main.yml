@@ -35,16 +35,17 @@
 ###############################################################################################
 # install packages
 #
+- { include: get-and-cache.yml, toget: "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-22.noarch.rpm" }
 
 - name: Install RPMFusion free repository
   sudo: yes
-  dnf: name=http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-22.noarch.rpm state=present
-  environment: proxy_env
+  dnf: name="{{ cached }}" state=present
+
+- { include: get-and-cache.yml, toget: "http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-22.noarch.rpm" }
 
 - name: Install RPMFusion non-free repository
   sudo: yes
-  dnf: name=http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-22.noarch.rpm state=present
-  environment: proxy_env
+  dnf: name="{{ cached }}" state=present
 
 - name: install packages
   sudo: yes
@@ -138,15 +139,10 @@
   template: src=zshrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.zshrc mode=644
   tags: fast
 
-- name: Get Sublime Text 3
-  get_url: url="http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3083_x64.tar.bz2" dest=/tmp/sublime_text_3_build_3083_x64.tar.bz2
-  environment: proxy_env
+- { include: get-and-cache.yml, toget: "http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3083_x64.tar.bz2" }
 
 - name: Uncompress Sublime under the tools directory
-  unarchive: src=/tmp/sublime_text_3_build_3083_x64.tar.bz2 dest="{{ tools.path }}" creates={{ tools.path }}/sublime_text_3
-
-- name: Sublime Text 3 user configuration directory
-  file: path={{ user.home }}/.config/sublime-text-3/Packages/User/  owner={{ user.name }} group={{ user.name }} state=directory
+  unarchive: src="{{ cached }}" dest="{{ tools.path }}" creates={{ tools.path }}/sublime_text_3
 
 - name: SublimeText3 configuration
   template: src=sublime-text-eclipse-style owner={{ user.name }} group={{ user.name }} dest="{{ user.home }}/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap" mode=664
@@ -158,14 +154,11 @@
     dest="{{ user.home }}/.config/sublime-text-3/Packages/User/Package Control.sublime-settings"
   tags: fast
 
-- name: Download Atom Text Editor
-  get_url: url=http://atom.io/download/rpm dest=/tmp/atom.rpm
-  environment: proxy_env
-  tags: atom
+- { include: get-and-cache.yml, toget: "http://atom.io/download/rpm" }
 
 - name: Install Atom Text Editor
   sudo: yes
-  dnf: name=/tmp/atom.rpm state=present
+  dnf: name="{{ cached }}" state=present
   tags: atom
 
 - name: Install Atom Asciidoctor Preview package

@@ -2,9 +2,11 @@
   sudo: yes
   dnf: name=docker state=absent
 
+- { include: get-and-cache.yml, toget: "https://get.docker.com/rpm/1.7.0/fedora-22/RPMS/x86_64/docker-engine-1.7.0-1.fc22.x86_64.rpm" }
+
 - name: Install Docker Package from Docker Inc
   sudo: yes
-  dnf: name=https://get.docker.com/rpm/1.7.0/fedora-22/RPMS/x86_64/docker-engine-1.7.0-1.fc22.x86_64.rpm state=present
+  dnf: name="{{ cached }}" state=present
   environment: proxy_env
 
 - name: Create a docker group
@@ -34,9 +36,11 @@
   sudo: yes
   tags: fast
 
+- { include: get-and-cache.yml, toget: "https://github.com/docker/machine/releases/download/v0.3.0/docker-machine_linux-amd64" }
+
 - name: Install Docker machine
   sudo: yes
-  get_url: url=https://github.com/docker/machine/releases/download/v0.3.0/docker-machine_linux-amd64 dest=/usr/local/bin/docker-machine
+  copy: src="{{ cached }}" dest=/usr/local/bin/docker-machine
   environment: proxy_env
 
 - name: Make Docker Machine executable
