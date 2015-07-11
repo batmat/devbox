@@ -140,6 +140,9 @@
 - name: Uncompress Sublime under the tools directory
   unarchive: src=/tmp/sublime_text_3_build_3083_x64.tar.bz2 dest="{{ tools.path }}" creates={{ tools.path }}/sublime_text_3
 
+- name: Sublime Text 3 user configuration directory 
+  file: path={{ user.home }}/.config/sublime-text-3/Packages/User/  owner={{ user.name }} group={{ user.name }} state=directory
+  
 - name: SublimeText3 configuration
   template: src=sublime-text-eclipse-style owner={{ user.name }} group={{ user.name }} dest="{{ user.home }}/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap" mode=664
   tags: fast
