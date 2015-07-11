@@ -49,7 +49,7 @@ alias lb='mvn clean install -DskipTests -Dinvoker.skip=true'
 alias resetenv='{{ resetenv_path }}/resetenv'
 alias r=resetenv
 
-export PATH=~/.tools/sublime_text_3:$PATH
+export PATH={{ tools.path }}/sublime_text_3:$PATH
 alias s='sublime_text'
 alias sub='sublime_text'
 alias a='atom'

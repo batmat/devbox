@@ -136,8 +136,8 @@
   get_url: url="http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3083_x64.tar.bz2" dest=/tmp/sublime_text_3_build_3083_x64.tar.bz2
   environment: proxy_env
 
-- name: Uncompress Sublime under the .tools directory
-  unarchive: src=/tmp/sublime_text_3_build_3083_x64.tar.bz2 dest="{{ user.home }}/.tools/"
+- name: Uncompress Sublime under the tools directory
+  unarchive: src=/tmp/sublime_text_3_build_3083_x64.tar.bz2 dest="{{ tools.path }}"
 
 - name: SublimeText3 configuration
   template: src=sublime-text-eclipse-style owner={{ user.name }} group={{ user.name }} dest="{{ user.home }}/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap" mode=664
