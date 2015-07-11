@@ -1,7 +1,7 @@
 {
 {% if at_work == true %}
-	"http_proxy": "http://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}",
-	"https_proxy": "http://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}",
+	"http_proxy": "{{ proxy_env.http_proxy }}",
+	"https_proxy": "{{ proxy_env.https_proxy }}",
 {% endif %}
 	"installed_packages":
 	[
