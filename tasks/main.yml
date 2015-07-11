@@ -104,6 +104,7 @@
 
 - name: Set Git autosquash true globally (todo => idempotentize)
   shell: git config --global rebase.autosquash true
+  changed_when: false
 
 ###############################################################################################
 # tools settings
@@ -137,7 +138,7 @@
   environment: proxy_env
 
 - name: Uncompress Sublime under the tools directory
-  unarchive: src=/tmp/sublime_text_3_build_3083_x64.tar.bz2 dest="{{ tools.path }}"
+  unarchive: src=/tmp/sublime_text_3_build_3083_x64.tar.bz2 dest="{{ tools.path }}" creates={{ tools.path }}/sublime_text_3
 
 - name: SublimeText3 configuration
   template: src=sublime-text-eclipse-style owner={{ user.name }} group={{ user.name }} dest="{{ user.home }}/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap" mode=664
@@ -163,10 +164,12 @@
 - name: Install Atom Asciidoctor Preview package
   shell: apm install asciidoc-preview
   environment: proxy_env
+  changed_when: false
 
 - name: Install Atom Asciidoctor Eclipse Keybindings package
   shell: apm install eclipse-keybindings
   environment: proxy_env
+  changed_when: false
 
 ###############################################################################################
 # Maven
@@ -191,9 +194,11 @@
 - name: Configure kernel module for VirtualBox
   sudo: yes
   shell:  'akmods --kernel $( uname -r )'
+  changed_when: false
   tags: VirtualBox
 
 - name: Configure kernel module for VirtualBox
   sudo: yes
   shell: systemctl restart systemd-modules-load.service
+  changed_when: false
   tags: VirtualBox
