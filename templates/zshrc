@@ -25,6 +25,7 @@ alias ......=../../../../..
 alias la='ls -lAh'
 alias ll='ls -lh'
 alias ls='ls --color=tty'
+alias l=ls
 
 alias vi="vim"
 
