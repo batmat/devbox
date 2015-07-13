@@ -46,3 +46,14 @@
 - name: Make Docker Machine executable
   sudo: yes
   file: path=/usr/local/bin/docker-machine state=file mode="u+rx,a+x,g+x"
+
+- { include: get-and-cache.yml, toget: "https://github.com/docker/compose/releases/download/1.3.1/docker-compose-Linux-x86_64" }
+
+- name: Install Docker Compose
+  sudo: yes
+  copy: src="{{ cached }}" dest=/usr/local/bin/docker-compose
+  environment: proxy_env
+
+- name: Make Docker Machine compose
+  sudo: yes
+  file: path=/usr/local/bin/docker-compose state=file mode="u+rx,a+x,g+x"
