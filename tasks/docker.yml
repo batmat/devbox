@@ -12,10 +12,12 @@
 - name: Create a docker group
   sudo: yes
   group: name=docker state=present
+  tags: fast
 
 - name: Add the current user to the docker group
   sudo: yes
   user: name="{{ user.name }}" groups=docker append=yes
+  tags: fast
 
 - name: Docker systemd configuration
   sudo: yes
