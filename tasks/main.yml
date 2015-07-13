@@ -139,9 +139,9 @@
 - name: Uncompress Sublime under the tools directory
   unarchive: src=/tmp/sublime_text_3_build_3083_x64.tar.bz2 dest="{{ tools.path }}" creates={{ tools.path }}/sublime_text_3
 
-- name: Sublime Text 3 user configuration directory 
+- name: Sublime Text 3 user configuration directory
   file: path={{ user.home }}/.config/sublime-text-3/Packages/User/  owner={{ user.name }} group={{ user.name }} state=directory
-  
+
 - name: SublimeText3 configuration
   template: src=sublime-text-eclipse-style owner={{ user.name }} group={{ user.name }} dest="{{ user.home }}/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap" mode=664
   tags: fast
@@ -172,16 +172,6 @@
   environment: proxy_env
   changed_when: false
 
-###############################################################################################
-# Maven
-
-- name: Make sure .m2 directory exists
-  file: path="{{ user.home }}/.m2" state=directory mode=0755
-
-- name: Setting up corporate Maven Settings
-  template: src=mavensettings.xml dest={{ user.home }}/.m2/settings.xml
-
-###############################################################################################
 # Docker
 #
 - include: docker.yml
