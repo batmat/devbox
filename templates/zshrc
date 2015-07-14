@@ -45,6 +45,7 @@ alias clean-old-containers="docker ps -a | grep Exited | grep 'days ago' | awk '
 alias cco=clean-old-containers
 alias clean-images='docker rmi $(docker images --filter dangling=true --quiet)'
 
+export EDITOR=vim
 alias gs='git status'
 alias gwip='git add -A; git ls-files --deleted -z | xargs -r0 git rm; git commit -m "--wip--"'
 alias gpr='git pull --rebase'

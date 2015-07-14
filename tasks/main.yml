@@ -139,6 +139,10 @@
   template: src=zshrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.zshrc mode=644
   tags: fast
 
+- name: add vimrc file
+  template: src=vimrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.vimrc mode=644
+  tags: fast
+
 - { include: get-and-cache.yml, toget: "http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3083_x64.tar.bz2" }
 
 - name: Uncompress Sublime under the tools directory
