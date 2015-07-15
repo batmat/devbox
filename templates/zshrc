@@ -25,6 +25,7 @@ alias ......=../../../../..
 alias la='ls -lAh'
 alias ll='ls -lh'
 alias ls='ls --color=tty'
+alias l=ls
 
 alias vi="vim"
 
@@ -38,7 +39,13 @@ alias d='docker'
 alias dl='docker ps -l -q'
 alias dclean='docker rm $(docker ps -a -q)'
 alias dm='docker-machine'
+alias dc='docker-compose'
+alias swarm='docker run swarm'
+alias clean-old-containers="docker ps -a | grep Exited | grep 'days ago' | awk '{print $1}' | xargs --no-run-if-empty docker rm"
+alias cco=clean-old-containers
+alias clean-images='docker rmi $(docker images --filter dangling=true --quiet)'
 
+export EDITOR=vim
 alias gs='git status'
 alias gwip='git add -A; git ls-files --deleted -z | xargs -r0 git rm; git commit -m "--wip--"'
 alias gpr='git pull --rebase'
