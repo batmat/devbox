@@ -53,7 +53,10 @@ alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %
 
 alias lb='mvn clean install -DskipTests -Dinvoker.skip=true'
 
-alias resetenv='{{ resetenv_path }}/resetenv'
+function resetenv() {
+	{{ resetenv_path }}/resetenv $@
+	source $HOME/.zshrc
+}
 alias r=resetenv
 
 export PATH={{ tools.path }}/sublime_text_3:$PATH
