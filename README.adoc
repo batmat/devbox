@@ -1,0 +1,109 @@
+= resetenv
+
+This role permits to install/configure a basic development environment.
+
+== Features
+* Dynamically configures proxy settings (dnf, docker)
+* Installs and configures :
+** some basic packages
+** some basic config files
+** docker, docker-compose, docker-machine
+** SublimeText3
+** Atom
+** ssh config files
+
+== Prerequisites
+* Fedora 22
+* Ansible (currently tested on 1.9.2)
+
+== Install & Configure it
+
+Get the code source :
+[source]
+$ git clone <REPO_URL> /local/path
+
+Sensitive data and variables are located in "vaulted" files inside the `vars` directory.
+
+If you want to reuse this role, you must override existing vaulted files with your own data and "vault" them with your own password.
+
+[source]
+$ rm -rf vars/*
+
+=== Configure common variables
+[source]
+$ ansible-vault create vars/common-vars.yml.vault
+
+Example of common-vars.yml.vault file content :
+[source, yaml]
+  ---
+  user:
+    name: mikl
+    fullName: Michael Pailloncy
+    email: mpapo.dev@gmail.com
+    home: /home/mikl
+  cachedir: /home/mikl/.ansible-cache
+  tools:
+    path: /home/mikl/tools
+  proxy:
+    host: $workProxyHost
+
+=== Configure SSH config variables
+[source]
+$ ansible-vault create vars/sshconfig.yml.vault
+
+Example of sshconfig.yml.vault file content :
+[source, yaml]
+---
+sshconfig:
+   hosts:
+     host1: >
+          Host host1
+            HostName hostname1
+            User userhost1
+     host2: >
+          Host host2
+            HostName hostname2
+            User userhost2
+     ...
+
+=== Configure Work specific variables
+
+[source]
+$ ansible-vault create vars/work-vars.yml.vault
+
+Example of common-vars.yml.vault file content :
+
+[source, yaml]
+---
+user:
+  name: mikl
+  fullName: Michael Pailloncy
+  email: work-email@company.fr
+  home: /home/mikl
+docker_internal_registry: "$internalDockerRegistryUrl"
+proxy:
+  host: $workProxyHost
+  port: $workProxyPort
+  user: $workProxyUsername
+  password: $workProxyPassword
+proxy_env:
+  http_proxy: 'http://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
+  https_proxy: 'http://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
+  no_proxy: '127.0.0.1,$internalDockerRegistryHostname'
+
+=== Run it !
+
+WARNING: Make sure that you have read all actions made by this playbook and saved all files susceptible to be erased (zshrc, ssh config files, docker config files, etc) before run it on a non "config-managed" environment.
+
+[source]
+$ ./resetenv
+
+TIP: resetenv shell script is added in your PATH after provisioning (see zshrc template file). With a fresh new terminal, you can run it anywhere.
+
+TIP: You can add any `ansible-playbook` options to resetenv shell script. Example: `resetenv -t fast` for a fast and basic reconfiguration (using `fast` tag).
+
+== TODO
+* find a more elegant way to manage "vaulted" files, specific to each users
+* externalize list of basic packages to customize it per environment/user
+* manage SSH private/public key (vaulted)
+* manage home/work Maven settings
