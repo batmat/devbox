@@ -56,6 +56,6 @@
   copy: src="{{ cached }}" dest=/usr/local/bin/docker-compose
   environment: proxy_env
 
-- name: Make Docker Machine compose
+- name: Make Docker compose executable
   sudo: yes
   file: path=/usr/local/bin/docker-compose state=file mode="u+rx,a+x,g+x"
