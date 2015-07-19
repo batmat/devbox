@@ -9,7 +9,7 @@ autoload -Uz compinit
 compinit
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git history-substring-search docker mvn lol)
+plugins=(git history-substring-search docker docker-compose vagrant mvn lol)
 source $ZSH/oh-my-zsh.sh
 
 export PATH=~/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
