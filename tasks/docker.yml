@@ -59,3 +59,14 @@
 - name: Make Docker compose executable
   sudo: yes
   file: path=/usr/local/bin/docker-compose state=file mode="u+rx,a+x,g+x"
+
+- name: cache useful images
+  sudo: yes
+  shell: docker pull {{ item }}
+  with_items:
+    - debian
+    - busybox
+    - alpine
+    - batmat/asciidoctor-prez
+    - swarm
+    - jenkins
