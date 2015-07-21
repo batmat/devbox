@@ -45,6 +45,17 @@ alias dclean-old-containers="docker ps -a | grep Exited | grep 'days ago' | awk 
 alias cco=dclean-old-containers
 alias dclean-dangling-images='docker rmi $(docker images --filter dangling=true --quiet)'
 
+# Should be the default, but unexpectedly tries to use libvirt on my machine
+export VAGRANT_DEFAULT_PROVIDER=virtualbox
+
+#Buggy KDE5 Plasmashell, to restart easily
+alias kp='killall plasmashell ; nohup plasmashell >/dev/null&'
+
+function docker_clean_orphan_volumes() {
+ 	docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes $@
+}
+alias dclean-orphan-volumes=docker_clean_orphan_volumes
+
 export EDITOR=vim
 alias gs='git status'
 alias gwip='git add -A; git ls-files --deleted -z | xargs -r0 git rm; git commit -m "--wip--"'
