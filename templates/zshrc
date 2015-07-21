@@ -64,6 +64,11 @@ alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %
 
 alias lb='mvn clean install -DskipTests -Dinvoker.skip=true'
 
+function httpie_docker() {
+	docker run -it --rm --net=host clue/httpie $@
+}	
+alias http=httpie_docker
+
 function resetenv() {
 	{{ resetenv_path }}/resetenv $@
 	source $HOME/.zshrc
