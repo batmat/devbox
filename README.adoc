@@ -29,6 +29,12 @@ If you want to reuse this role, you must override existing vaulted files with yo
 [source]
 $ rm -rf vars/*
 
+By default, `resetenv` script will search a file named `.vault-password` containing your password and use it to "unvault" your data.
+You need to create it :
+
+[source]
+$ echo "yourP@ssw0rd" > .vault-password
+
 === Configure common variables
 [source]
 $ ansible-vault create vars/common-vars.yml.vault
@@ -45,7 +51,9 @@ Example of common-vars.yml.vault file content :
   tools:
     path: /home/mikl/tools
   proxy:
-    host: $workProxyHost
+    host: my-work-proxy.hostname
+
+WARNING: You need to replace all `$variables` by your specific values
 
 === Configure SSH config variables
 [source]
@@ -71,7 +79,7 @@ sshconfig:
 [source]
 $ ansible-vault create vars/work-vars.yml.vault
 
-Example of common-vars.yml.vault file content :
+Example of work-vars.yml.vault file content :
 
 [source, yaml]
 ---
@@ -80,7 +88,7 @@ user:
   fullName: Michael Pailloncy
   email: work-email@company.fr
   home: /home/mikl
-docker_internal_registry: "$internalDockerRegistryUrl"
+docker_internal_registry: "my-internal-docker-registry.hostname"
 proxy:
   host: $workProxyHost
   port: $workProxyPort
@@ -90,6 +98,8 @@ proxy_env:
   http_proxy: 'http://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
   https_proxy: 'http://{{ proxy.user }}:{{ proxy.password }}@{{ proxy.host }}:{{ proxy.port }}'
   no_proxy: '127.0.0.1,$internalDockerRegistryHostname'
+
+WARNING: You need to replace all `$variables` by your specific values
 
 === Run it !
 
