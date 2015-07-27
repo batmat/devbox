@@ -55,6 +55,8 @@
    - git
    - git-svn
    - git-gui
+   - tig
+   - mercurial
    - subversion
    - tree
    - unzip
