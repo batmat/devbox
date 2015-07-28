@@ -1,0 +1,40 @@
+# ~/.tmuxinator/work.yml
+
+name: work
+root: ~/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+pre: {{ resetenv_path }}/resetenv -t fast
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+windows:
+  - home:
+      layout: main-vertical
+      panes:
+        - cd ~/workspace
+        - cd ~/workspace/tmp
+  - resetenv: cd {{ resetenv_path }} && git status
+  # ce if n'est pas pris en compte la 1ère fois sur un `mux start work`
+  # TODO => trouver un moyen pour que ça fonctionne directement
+  {% if at_work == true %}
+  - marmotte:
+       layout: main-vertical
+       panes:
+         - cd ~/workspace/pgih-marmotte && git status
+         - cd ~/workspace/pgih-marmotte/marmotte-jenkins-plugin
+         - cd ~/workspace/pgih-marmotte && tig
+  - ic: ssh ic
+  - nexus: ssh nexus
+  - git: ssh git
+  {% endif %}

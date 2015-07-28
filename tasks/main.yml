@@ -73,6 +73,7 @@
    - kphotoalbum
    - grisbi
    - tmux
+   - tmuxinator
    - keepass
    - gimp
    - ImageMagick
@@ -140,6 +141,18 @@
 
 - name: add zshrc file
   template: src=zshrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.zshrc mode=644
+  tags: fast
+
+- name: add tmuxinator-completion file for zsh
+  copy: src=tmuxinator-completion.zsh owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.tmuxinator-completion.zsh mode=644
+  tags: fast
+
+- name: create tmuxinator config directories
+  file: path={{ user.home }}/.tmuxinator owner={{ user.name }} group={{ user.name }} state=directory
+  tags: fast
+
+- name: add tmuxinator config file
+  template: src=tmuxinator/work.yml owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.tmuxinator/work.yml
   tags: fast
 
 - name: add vimrc file

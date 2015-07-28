@@ -39,6 +39,9 @@ alias t='tmux'
 alias tls="tmux ls"
 alias ta="tmux a -t"
 alias tk="tmux kill-session -t"
+
+source {{ user.home }}/.tmuxinator-completion.zsh
+
 alias d='docker'
 alias dl='docker ps -l -q'
 alias dm='docker-machine'
