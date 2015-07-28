@@ -35,6 +35,8 @@ alias search='sudo dnf search'
 alias h='history'
 alias c='clear'
 
+# fixed windows name for tmux
+export DISABLE_AUTO_TITLE=true
 alias t='tmux'
 alias tls="tmux ls"
 alias ta="tmux a -t"
