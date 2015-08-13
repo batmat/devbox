@@ -170,7 +170,7 @@
 
 - name: Setting up proxy for SublimeText Package Control Plugin
   template:
-    src=templates/PackageControl.sublime-settings
+    src=PackageControl.sublime-settings
     dest="{{ user.home }}/.config/sublime-text-3/Packages/User/Package Control.sublime-settings"
   tags: fast
 

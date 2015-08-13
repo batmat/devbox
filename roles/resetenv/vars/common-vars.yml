@@ -1,0 +1,11 @@
+---
+user:
+  name: tiste
+  fullName: Baptiste Mathus
+  email: batmat@batmat.net
+  home: /home/tiste
+
+tools:
+  path: "{{ user.home }}/.tools"
+
+cachedir: "{{ user.home }}/.cache/tools"
