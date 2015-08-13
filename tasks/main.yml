@@ -191,6 +191,10 @@
   environment: proxy_env
   changed_when: false
 
+- name: Set Atom Preferences
+  copy: src=atom-config.cson dest="{{ user.home }}/.atom/config.cson"
+  tags: fast
+
 ###############################################################################################
 # VirtualBox
 #

@@ -1,0 +1,16 @@
+"*":
+  "exception-reporting":
+    userId: "f893169d-e9d9-d776-1909-73259ec9500b"
+  welcome:
+    showOnStartup: false
+  editor:
+    invisibles: {}
+    showLineNumbers: true
+    fontSize: 16
+    softWrap: true
+    softWrapAtPreferredLineLength: true
+    showIndentGuide: true
+    preferredLineLength: 100
+  core:
+    excludeVcsIgnoredPaths: true
+    autoHideMenuBar: true
