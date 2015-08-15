@@ -1,0 +1,1 @@
+export GOPATH={{ user.home }}/workspace-go

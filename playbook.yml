@@ -2,5 +2,32 @@
 - hosts: 127.0.0.1
   connection: local
   roles:
-    - { role: resetenv }
+    - { role: _base }
+    - { role: atom }
     - { role: docker }
+    - { role: git }
+    - { role: java }
+    - { role: golang }
+    - { role: gohugo }
+    - { role: tmux }
+    - { role: vagrant }
+    - { role: sublime }
+    - { role: maven }
+
+  tasks:
+
+    - name: Install personal packages
+      sudo: yes
+      dnf: name={{ item }} state=present
+      with_items:
+      - grisbi
+      - keepass
+      - gimp
+      - ImageMagick
+      - baobab
+      - audacity
+      - vlc
+      - kphotoalbum
+      - fdupes
+      - ffmpegthumbs
+      - kde-partitionmanager

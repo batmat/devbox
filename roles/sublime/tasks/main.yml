@@ -1,0 +1,18 @@
+- { include: get-and-cache.yml, toget: "http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3083_x64.tar.bz2" }
+
+- name: Uncompress Sublime under the tools directory
+  unarchive: src="{{ cached }}" dest="{{ tools.path }}" creates={{ tools.path }}/sublime_text_3
+
+- name: SublimeText3 configuration
+  template: src=sublime-text-eclipse-style owner={{ user.name }} group={{ user.name }} dest="{{ user.home }}/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap" mode=664
+  tags: fast
+
+- name: Setting up proxy for SublimeText Package Control Plugin
+  template:
+    src=PackageControl.sublime-settings
+    dest="{{ user.home }}/.config/sublime-text-3/Packages/User/Package Control.sublime-settings"
+  tags: fast
+
+- name: add zshrc sublime chunk
+  template: src=zshrc-sublime dest="{{ user.home }}/.zshrc-chunks/sublime"
+  tags: fast

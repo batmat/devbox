@@ -1,0 +1,15 @@
+---
+
+- name: install packages
+  sudo: yes
+  dnf: name={{ item }} state=present
+  with_items:
+   - golang
+   - mercurial
+   - subversion
+   - rubygem-asciidoctor
+   - pandoc
+
+- name: add zshrc chunk
+  template: src=zshrc-golang dest="{{ user.home }}/.zshrc-chunks/golang"
+  tags: fast

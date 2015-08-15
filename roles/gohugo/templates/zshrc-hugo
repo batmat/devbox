@@ -1,0 +1,1 @@
+export PATH=~/.tools/hugo_0.14_linux_amd64:$PATH

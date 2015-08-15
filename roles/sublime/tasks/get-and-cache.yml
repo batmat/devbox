@@ -1,4 +1,3 @@
-# TODO : deduplicate - write a custom module ?
 - name: Create tools cache dir
   file: name="{{ cachedir }}" state=directory
 

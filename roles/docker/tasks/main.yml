@@ -70,3 +70,7 @@
     - batmat/asciidoctor-prez
     - swarm
     - jenkins
+
+- name: add zshrc docker chunk
+  template: src=zshrc-docker dest="{{ user.home }}/.zshrc-chunks/docker"
+  tags: fast

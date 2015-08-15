@@ -1,0 +1,10 @@
+---
+
+- { include: get-and-cache.yml, toget: "https://github.com/spf13/hugo/releases/download/v0.14/hugo_0.14_linux_amd64.tar.gz" }
+
+- name: Uncompress Hugo under the tools directory
+  unarchive: src="{{ cached }}" dest="{{ tools.path }}" creates={{ tools.path }}/hugo
+
+- name: add zshrc chunk
+  template: src=zshrc-hugo dest="{{ user.home }}/.zshrc-chunks/hugo"
+  tags: fast

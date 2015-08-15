@@ -1,0 +1,8 @@
+# fixed windows name for tmux
+export DISABLE_AUTO_TITLE=true
+alias t='tmux'
+alias tls="tmux ls"
+alias ta="tmux a -t"
+alias tk="tmux kill-session -t"
+
+source {{ user.home }}/.tmuxinator-completion.zsh

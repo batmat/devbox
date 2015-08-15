@@ -1,0 +1,18 @@
+############ >>>DOCKER
+alias d='docker'
+alias dl='docker ps -l -q'
+alias dm='docker-machine'
+alias dc='docker-compose'
+alias swarm='docker run --rm swarm'
+alias dclean-all-containers='docker rm $(docker ps -a -q)'
+alias dclean-old-containers="docker ps -a | grep Exited | grep 'days ago' | awk '{print $1}' | xargs --no-run-if-empty docker rm"
+alias dclean-dangling-images='docker rmi $(docker images --filter dangling=true --quiet)'
+
+# Should be the default, but unexpectedly tries to use libvirt on my machine
+export VAGRANT_DEFAULT_PROVIDER=virtualbox
+
+function docker_clean_orphan_volumes() {
+   docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes $@
+}
+alias dclean-orphan-volumes=docker_clean_orphan_volumes
+############ <<<DOCKER

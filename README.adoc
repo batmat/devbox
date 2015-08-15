@@ -55,25 +55,6 @@ Example of common-vars.yml.vault file content :
 
 WARNING: You need to replace all `$variables` by your specific values
 
-=== Configure SSH config variables
-[source]
-$ ansible-vault create vars/sshconfig.yml.vault
-
-Example of sshconfig.yml.vault file content :
-[source, yaml]
----
-sshconfig:
-   hosts:
-     host1: >
-          Host host1
-            HostName hostname1
-            User userhost1
-     host2: >
-          Host host2
-            HostName hostname2
-            User userhost2
-     ...
-
 === Configure Work specific variables
 
 [source]

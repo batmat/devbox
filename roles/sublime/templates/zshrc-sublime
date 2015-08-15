@@ -1,0 +1,2 @@
+export PATH={{ tools.path }}/sublime_text_3:$PATH
+alias sub='sublime_text'

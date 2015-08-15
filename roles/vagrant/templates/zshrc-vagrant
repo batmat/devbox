@@ -1,0 +1,2 @@
+# Should be the default, but unexpectedly tries to use libvirt on my machine
+export VAGRANT_DEFAULT_PROVIDER=virtualbox

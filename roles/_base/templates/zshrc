@@ -1,0 +1,93 @@
+ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="geoffgarside"
+
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+bindkey -v
+autoload -Uz compinit
+compinit
+COMPLETION_WAITING_DOTS="true"
+
+plugins=(git history-substring-search docker docker-compose vagrant mvn lol)
+source $ZSH/oh-my-zsh.sh
+
+export PATH=~/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# some git aliases from zsh git plugin are provided, I prefer to customize them entirely
+unalias -m "*"
+
+alias ...=../..
+alias ....=../../..
+alias .....=../../../..
+alias ......=../../../../..
+
+alias la='ls -lAh'
+alias ll='ls -lh'
+alias ls='ls --color=tty'
+alias l=ls
+
+alias vi="vim"
+
+alias get='sudo dnf install'
+alias search='sudo dnf search'
+
+alias h='history'
+alias c='clear'
+
+#Buggy KDE5 Plasmashell, to restart easily
+alias kp='killall plasmashell ; nohup plasmashell >/dev/null&'
+
+export EDITOR=vim
+
+alias http='docker run -it --rm --net=host clue/httpie'
+
+function resetenv() {
+  {{ resetenv_path }}/resetenv $@
+  source $HOME/.zshrc
+}
+alias r=resetenv
+
+function _ansibleinitrole() {
+  if [[ $# != 1 ]]; then
+    echo "Usage: $0 roleName"
+    return 1
+  fi
+  if [[ -d $1 ]]; then
+    >&2 echo "'$1' already exists, remove or use another name"
+    return 2
+  fi
+  mkdir $1
+  mkdir $1/files $1/handlers $1/meta $1/templates $1/tasks $1/vars
+  echo "[OK] Role $1 initialized successfully"
+}
+alias ansible-init-role=_ansibleinitrole
+
+{% if at_work == true %}
+export MODE='MiPih'
+export http_proxy='{{ proxy_env.http_proxy }}'
+export https_proxy='{{ proxy_env.https_proxy }}'
+export no_proxy='{{ proxy_env.no_proxy }}'
+{% else %}
+export MODE='HOME'
+{% endif %}
+
+export PS1="[$MODE] $PS1"
+
+unsetproxy() {
+  unset http_proxy
+  unset https_proxy
+}
+
+if [ -f ~/.myzhrc ]; then
+  source ~/.myzhrc
+fi
+
+# TODO : Externalize and use across roles (?)
+ZSHRC_CHUNKS=~/.zshrc-chunks
+if [ -d $ZSHRC_CHUNKS ]; then
+  for zshrc_chunk in $ZSHRC_CHUNKS/*
+  do
+    source $zshrc_chunk
+  done
+fi
