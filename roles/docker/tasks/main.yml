@@ -1,12 +1,29 @@
-- name: Check standard docker package is *not* installed
+- name: Check possibly conflicting docker packages are *not* installed
   sudo: yes
-  dnf: name=docker state=absent
+  dnf: name={{ item }} state=absent
+  with_items:
+    - docker
+    - docker.io
+  tags: fast
 
-- { include: get-and-cache.yml, toget: "https://get.docker.com/rpm/1.7.0/fedora-22/RPMS/x86_64/docker-engine-1.7.0-1.fc22.x86_64.rpm" }
+- name: Add Official Docker RPM repository
+  sudo: yes
+  shell: dnf config-manager --add-repo http://yum.dockerproject.org/repo/main/fedora/22
+  args:
+    creates: /etc/yum.repos.d/yum.dockerproject.org_repo_main_fedora_22.repo
+  tags: fast
+
+- name: Add gpg key for Docker repo
+  sudo: yes
+  lineinfile:
+    dest: /etc/yum.repos.d/yum.dockerproject.org_repo_main_fedora_22.repo
+    line: gpgkey=https://yum.dockerproject.org/gpg
+    state: present
+  tags: fast
 
 - name: Install Docker Package from Docker Inc
   sudo: yes
-  dnf: name="{{ cached }}" state=present
+  dnf: name=docker-engine state=present
   environment: proxy_env
 
 - name: Create a docker group
