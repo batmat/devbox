@@ -5,6 +5,12 @@
   dnf: name="{{ cached }}" state=present
   tags: atom
 
+- name: Configure the proxy for atom
+  template: src=apmrc dest="{{ user.home }}/.atom/.apmrc"
+  tags:
+    - atom
+    - fast
+
 - name: Install Atom Asciidoctor Preview package
   shell: apm install asciidoc-preview
   environment: proxy_env
