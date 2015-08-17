@@ -1,7 +1,3 @@
-* PS1 add current docker daemon port/address if not localhost
-* Extract vars directory from subrole(s). IMO does not make sense to have
-  custom user configuration inside the role directory itself.
-
 * Remove/factorize copy/pasted get-and-cache.yml
 
 * Extract zshrc into dedicated chunks and then just source them all from a single dir.

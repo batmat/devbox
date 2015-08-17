@@ -1,19 +1,40 @@
-= resetenv
+= devbox
 
-This role permits to install/configure a basic development environment.
+This project is designed to automate the whole configuration of your dev machine using Ansible.
+
+I have tried to make the project reusable. So, if you like that idea and would like to customize it for your needs please read below.
+
+NOTE: All this is absolutely working on my machine (I use it everyday), but is still in early stage for potential reuse. So I would absolutely love any kind of feedback. Or if you want to propose a change to make reusing this project simple(r), I'm all ears! You can also link:http://twitter.com/bmathus/[ping me on Twitter].
+
+== Code Organization
+
+The _features_ are split into generally small _roles_ (see link:roles/[roles directory] for currently existing roles).
+
+I organized the roles this way for at least two reasons:
+
+* ease & clarify what each role is and should be doing
+* try and make easier for other people to reuse
+
+== How to reuse?
+
+See the playbook.yml for reference. You can easily clone this repository and
+start creating or customizing your own playbook.yml file. Remove or create roles to fit your needs.
 
 == Features
-* Dynamically configures proxy settings (dnf, docker)
-* Installs and configures :
-** some basic packages
-** some basic config files
-** docker, docker-compose, docker-machine
-** SublimeText3
-** Atom
-** ssh config files
 
-== Prerequisites
-* Fedora 22
+* Dynamically configures proxy settings (dnf, docker)
+
+* For example, installs and configures :
+** some basic packages (zsh...)
+** **Docker-** (docker-engine, docker-compose, docker-machine), dynamic authenticated proxy configuration, etc.
+** Atom, SublimeText 3
+** Java, Go, maven
+** tmux
+** Git, Svn, mercurial...
+** ...
+
+== Current prerequisites
+* Fedora 22 (but open to support other flavours)
 * Ansible (currently tested on 1.9.2)
 
 == Install & Configure it
@@ -22,12 +43,12 @@ Get the code source :
 [source]
 $ git clone <REPO_URL> /local/path
 
-Sensitive data and variables are located in "vaulted" files inside the `vars` directory.
+Sensitive data and variables are located in "vaulted" files inside the `roles/_base/vars` directory.
 
-If you want to reuse this role, you must override existing vaulted files with your own data and "vault" them with your own password.
+If you want to reuse this, you must override existing vaulted files with your own data and "vault" them with your own password.
 
 [source]
-$ rm -rf vars/*
+$ rm -rf vars/
 
 By default, `resetenv` script will search a file named `.vault-password` containing your password and use it to "unvault" your data.
 You need to create it :
@@ -36,26 +57,10 @@ You need to create it :
 $ echo "yourP@ssw0rd" > .vault-password
 
 === Configure common variables
-[source]
-$ ansible-vault create vars/common-vars.yml.vault
 
-Example of common-vars.yml.vault file content :
-[source, yaml]
-  ---
-  user:
-    name: mikl
-    fullName: Michael Pailloncy
-    email: mpapo.dev@gmail.com
-    home: /home/mikl
-  cachedir: /home/mikl/.ansible-cache
-  tools:
-    path: /home/mikl/tools
-  proxy:
-    host: my-work-proxy.hostname
+See roles/_base/common-vars.yml
 
-WARNING: You need to replace all `$variables` by your specific values
-
-=== Configure Work specific variables
+=== Configure Work/sensitive specific variables
 
 [source]
 $ ansible-vault create vars/work-vars.yml.vault
@@ -65,10 +70,10 @@ Example of work-vars.yml.vault file content :
 [source, yaml]
 ---
 user:
-  name: mikl
-  fullName: Michael Pailloncy
+  name: tiste
+  fullName: Baptiste Mathus
   email: work-email@company.fr
-  home: /home/mikl
+  home: /home/tiste
 docker_internal_registry: "my-internal-docker-registry.hostname"
 proxy:
   host: $workProxyHost
@@ -84,17 +89,29 @@ WARNING: You need to replace all `$variables` by your specific values
 
 === Run it !
 
-WARNING: Make sure that you have read all actions made by this playbook and saved all files susceptible to be erased (zshrc, ssh config files, docker config files, etc) before run it on a non "config-managed" environment.
+CAUTION: Make sure that you have read all actions made by this playbook and saved all files than could be overriden or removed (zshrc, docker config files, etc) before run it on a non "config-managed" environment.
 
 [source]
 $ ./resetenv
 
-TIP: resetenv shell script is added in your PATH after provisioning (see zshrc template file). With a fresh new terminal, you can run it anywhere.
+TIP: `resetenv` helper shell script is added in your PATH after provisioning (see zshrc template file). With a fresh new terminal, you can run it anywhere. This command is even also simply aliased `r`.
 
-TIP: You can add any `ansible-playbook` options to resetenv shell script. Example: `resetenv -t fast` for a fast and basic reconfiguration (using `fast` tag).
+TIP: You can add any `ansible-playbook` options to resetenv shell script. Example: `resetenv -t fast` for a fast and basic reconfiguration (e.g. using `fast` tag).
 
 == TODO
+
 * find a more elegant way to manage "vaulted" files, specific to each users
 * externalize list of basic packages to customize it per environment/user
 * manage SSH private/public key (vaulted)
 * manage home/work Maven settings
+* parameterize some roles if needed
+  (e.g. be able to ask for docker roles, but without docker-compose for example)
+* PS1 add current docker daemon port/address if not localhost
+* Extract vars directory from subrole(s). IMO does not make sense to have
+  custom user configuration inside the role directory itself.
+
+== References
+
+* See a link:https://github.com/mpapo/resetenv[similar project on mpapo's account]
+
+NOTE: We started our projects separately, then I reused Michael's and contributed to it. We finally decided to let our clones diverge to experiment.
