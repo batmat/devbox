@@ -64,18 +64,18 @@ function _ansibleinitrole() {
 alias ansible-init-role=_ansibleinitrole
 
 {% if at_work == true %}
-export MODE='MiPih'
+export MODE="('_')"
 export http_proxy='{{ proxy_env.http_proxy }}'
 export https_proxy='{{ proxy_env.https_proxy }}'
 export no_proxy='{{ proxy_env.no_proxy }}'
 {% else %}
-export MODE='HOME'
+export MODE='\o/'
 unset http_proxy
 unset https_proxy
 unset no_proxy
 {% endif %}
 
-export PS1="[$MODE] $PS1"
+export PS1="$MODE $PS1"
 
 unsetproxy() {
   unset http_proxy
