@@ -1,5 +1,4 @@
 - name: Check possibly conflicting docker packages are *not* installed
-  sudo: yes
   dnf: name={{ item }} state=absent
   with_items:
     - docker
