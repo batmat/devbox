@@ -80,12 +80,16 @@
   sudo: yes
   shell: docker pull {{ item }}
   with_items:
-    - debian
+    - batmat/asciidoctor-prez
     - busybox
     - alpine
-    - batmat/asciidoctor-prez
     - swarm
     - jenkins
+    - debian
+    - fedora
+    - centos
+  register: result
+  changed_when: "'Status: Image is up to date for' not in result.stdout"
 
 - name: add zshrc docker chunk
   template: src=zshrc-docker dest="{{ user.home }}/.zshrc-chunks/docker"
