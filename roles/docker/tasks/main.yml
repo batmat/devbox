@@ -6,14 +6,14 @@
   tags: fast
 
 - name: Add Official Docker RPM repository
-  sudo: yes
+  become: yes
   shell: dnf config-manager --add-repo http://yum.dockerproject.org/repo/main/fedora/22
   args:
     creates: /etc/yum.repos.d/yum.dockerproject.org_repo_main_fedora_22.repo
   tags: fast
 
 - name: Add gpg key for Docker repo
-  sudo: yes
+  become: yes
   lineinfile:
     dest: /etc/yum.repos.d/yum.dockerproject.org_repo_main_fedora_22.repo
     line: gpgkey=https://yum.dockerproject.org/gpg
@@ -21,29 +21,29 @@
   tags: fast
 
 - name: Install Docker Package from Docker Inc
-  sudo: yes
+  become: yes
   dnf: name=docker-engine state=present
   environment: proxy_env
 
 - name: Create a docker group
-  sudo: yes
+  become: yes
   group: name=docker state=present
   tags: fast
 
 - name: Add the current user to the docker group
-  sudo: yes
+  become: yes
   user: name="{{ user.name }}" groups=docker append=yes
   tags: fast
 
 - name: Docker systemd configuration
-  sudo: yes
+  become: yes
   template: src=docker-systemd-config owner=root group=root dest=/usr/lib/systemd/system/docker.service
   notify:
    - restart docker
   tags: fast
 
 - name: Docker config file
-  sudo: yes
+  become: yes
   template: src=docker-sysconfig owner=root group=root dest=/etc/sysconfig/docker
   notify:
    - restart docker
@@ -51,33 +51,33 @@
 
 - name: start and configure Docker
   service: name=docker state=started
-  sudo: yes
+  become: yes
   tags: fast
 
 - { include: get-and-cache.yml, toget: "https://github.com/docker/machine/releases/download/v0.3.0/docker-machine_linux-amd64" }
 
 - name: Install Docker machine
-  sudo: yes
+  become: yes
   copy: src="{{ cached }}" dest=/usr/local/bin/docker-machine
   environment: proxy_env
 
 - name: Make Docker Machine executable
-  sudo: yes
+  become: yes
   file: path=/usr/local/bin/docker-machine state=file mode="u+rx,a+x,g+x"
 
 - { include: get-and-cache.yml, toget: "https://github.com/docker/compose/releases/download/1.3.3/docker-compose-Linux-x86_64" }
 
 - name: Install Docker Compose
-  sudo: yes
+  become: yes
   copy: src="{{ cached }}" dest=/usr/local/bin/docker-compose
   environment: proxy_env
 
 - name: Make Docker compose executable
-  sudo: yes
+  become: yes
   file: path=/usr/local/bin/docker-compose state=file mode="u+rx,a+x,g+x"
 
 - name: cache useful images
-  sudo: yes
+  become: yes
   shell: docker pull {{ item }}
   with_items:
     - batmat/asciidoctor-prez

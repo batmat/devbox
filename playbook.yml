@@ -17,7 +17,7 @@
   tasks:
 
     - name: Install personal packages
-      sudo: yes
+      become: yes
       dnf: name={{ item }} state=present
       with_items:
       - grisbi

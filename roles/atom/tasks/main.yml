@@ -1,7 +1,7 @@
 - { include: get-and-cache.yml, toget: "http://atom.io/download/rpm" }
 
 - name: Install Atom Text Editor
-  sudo: yes
+  become: yes
   dnf: name="{{ cached }}" state=present
   tags: atom
 

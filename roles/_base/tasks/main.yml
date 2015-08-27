@@ -30,7 +30,7 @@
 - name: add dnf conf file
   template: src=dnf.conf owner=root group=root dest=/etc/dnf/dnf.conf mode=644
   tags: fast
-  sudo: yes
+  become: yes
 
 ###############################################################################################
 # install packages
@@ -38,17 +38,17 @@
 - { include: get-and-cache.yml, toget: "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-22.noarch.rpm" }
 
 - name: Install RPMFusion free repository
-  sudo: yes
+  become: yes
   dnf: name="{{ cached }}" state=present
 
 - { include: get-and-cache.yml, toget: "http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-22.noarch.rpm" }
 
 - name: Install RPMFusion non-free repository
-  sudo: yes
+  become: yes
   dnf: name="{{ cached }}" state=present
 
 - name: install packages
-  sudo: yes
+  become: yes
   dnf: name={{ item }} state=present
   with_items:
    - zsh
@@ -61,7 +61,7 @@
 # tools settings
 #
 - name: set default shell to zsh
-  sudo: yes
+  become: yes
   user: name={{ user.name }} shell=/usr/bin/zsh state=present
 
 - name: install oh-my-zsh
