@@ -54,7 +54,7 @@
   become: yes
   tags: fast
 
-- { include: get-and-cache.yml, toget: "https://github.com/docker/machine/releases/download/v0.3.0/docker-machine_linux-amd64" }
+- { include: get-and-cache.yml, toget:   "https://github.com/docker/machine/releases/download/v0.4.1/docker-machine_linux-amd64" }
 
 - name: Install Docker machine
   become: yes
