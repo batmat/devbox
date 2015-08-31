@@ -1,0 +1,10 @@
+# TODO : deduplicate - write a custom module ?
+- name: Create tools cache dir
+  file: name="{{ cachedir }}" state=directory
+
+- name: Get the requested file {{ toget }}
+  get_url: url="{{ toget }}" dest="{{ cachedir }}/{{ ( toget | basename )  if ( toget | basename ) != 'rpm' else (( toget | md5)+'.rpm') }}"
+  register: cachedurl
+  environment: proxy_env
+
+- set_fact: cached="{{ cachedurl.dest }}"

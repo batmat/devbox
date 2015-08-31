@@ -17,3 +17,21 @@
 - name: add zshrc chunk
   template: src=zshrc-git dest="{{ user.home }}/.zshrc-chunks/git"
   tags: fast
+
+
+##############
+# GitHub CLI
+##############
+- { include: get-and-cache.yml, tags: github, toget:   "https://github.com/github/hub/releases/download/v2.2.1/hub-linux-amd64-2.2.1.tar.gz" }
+
+
+- name: Check GitHub CLI install dir is present
+  become: yes
+  file: path=/opt/hub state=directory
+  tags: github
+
+# TODO : not idempotent
+- name: Install GitHub CLI
+  become: yes
+  shell: tar xvzf {{ cached }} --strip 1 -C /opt/hub
+  tags: github
