@@ -1,6 +1,7 @@
 * Remove/factorize copy/pasted get-and-cache.yml
-
-* Extract zshrc into dedicated chunks and then just source them all from a single dir.
-* zshrc chunks:
-** Create module to factor out the copy/pastes in tasks?
-** Create var to share between role instead of hardcoding the chunks location
+* alias for trash! (use github/trash ?) instead of mv? or the kde "kiofile ..."
+* alias/PATH for cmds for image/video processing
+* antfs-cli : add as alias + mediaconvert https://hub.docker.com/r/pashi/garmin-antfs/~/dockerfile/
+* Add GitHub CLI to Git role
+* alias to open dolphin in current dir
+* Git prompt : marker if existing stash ?
