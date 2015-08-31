@@ -23,7 +23,6 @@
 - name: Install Docker Package from Docker Inc
   become: yes
   dnf: name=docker-engine state=present
-  environment: proxy_env
 
 - name: Create a docker group
   become: yes
@@ -59,7 +58,6 @@
 - name: Install Docker machine
   become: yes
   copy: src="{{ cached }}" dest=/usr/local/bin/docker-machine
-  environment: proxy_env
 
 - name: Make Docker Machine executable
   become: yes
@@ -70,7 +68,6 @@
 - name: Install Docker Compose
   become: yes
   copy: src="{{ cached }}" dest=/usr/local/bin/docker-compose
-  environment: proxy_env
 
 - name: Make Docker compose executable
   become: yes
