@@ -81,7 +81,7 @@
     - busybox
     - alpine
     - swarm
-    - jenkins
+    - jenkins:1.609.3
     - debian
     - fedora
     - centos

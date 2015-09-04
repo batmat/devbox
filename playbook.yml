@@ -13,6 +13,7 @@
     - { role: vagrant }
     - { role: sublime }
     - { role: maven }
+    - { role: powerline }
 
   tasks:
 
