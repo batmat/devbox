@@ -1,0 +1,23 @@
+- name: install packages
+  become: yes
+  dnf: name=powerline state=present
+
+- name: Download font
+  get_url:
+    url: https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+    dest: "{{ user.home }}/.fonts//PowerlineSymbols.otf"
+
+- name: Regenerating font cache
+  command: fc-cache -vf ~/.fonts/
+
+- name: Create fontconfig directory
+  file: path="{{ user.home }}/.config/fontconfig/conf.d/" state=directory
+
+- name: Get and install fontconfig file
+  get_url:
+    url: https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+    dest: "{{ user.home }}/.config/fontconfig/conf.d/10-powerline-symbols.conf"
+
+- name: add zshrc chunk for powerline
+  template: src=zshrc-powerline dest="{{ user.home }}/.zshrc-chunks/powerline"
+  tags: fast
