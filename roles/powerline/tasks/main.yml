@@ -1,23 +1,45 @@
 - name: install packages
   become: yes
   dnf: name=powerline state=present
+  tags: powerline
 
 - name: Download font
   get_url:
     url: https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
     dest: "{{ user.home }}/.fonts//PowerlineSymbols.otf"
+  tags: powerline
 
 - name: Regenerating font cache
   command: fc-cache -vf ~/.fonts/
+  tags: powerline
 
 - name: Create fontconfig directory
   file: path="{{ user.home }}/.config/fontconfig/conf.d/" state=directory
+  tags: powerline
 
 - name: Get and install fontconfig file
   get_url:
     url: https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
     dest: "{{ user.home }}/.config/fontconfig/conf.d/10-powerline-symbols.conf"
+  tags: powerline
+
+- name: Create local configuration directories
+  file: path="{{ user.home }}/.config/powerline/themes/shell" state=directory
+  file: path="{{ user.home }}/.config/powerline/colorschemes" state=directory
+  tags: powerline
+
+- name: Copy config for shell
+  copy: src=shell/default.json dest="{{ user.home }}/.config/powerline/themes/shell/"
+  tags: powerline
+
+- name: Install powerline-gitstatus segment
+  pip: name=powerline-gitstatus version=v1.1.0
+  tags: powerline
+
+- name: Copy colorschemes config (for powerline-gitstatus)
+  copy: src=colorschemes/default.json dest="{{ user.home }}/.config/powerline/colorschemes/"
+  tags: powerline
 
 - name: add zshrc chunk for powerline
   template: src=zshrc-powerline dest="{{ user.home }}/.zshrc-chunks/powerline"
-  tags: fast
+  tags: powerline
