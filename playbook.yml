@@ -32,3 +32,4 @@
       - fdupes
       - ffmpegthumbs
       - kde-partitionmanager
+      - jq
