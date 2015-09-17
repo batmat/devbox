@@ -11,15 +11,15 @@
     - atom
     - fast
 
-- name: Install Atom Asciidoctor Preview package
-  shell: apm install asciidoc-preview
+- name: Install Atom Asciidoctor Packages
+  shell: apm install {{ item }}
   environment: proxy_env
   changed_when: false
-
-- name: Install Atom Asciidoctor Eclipse Keybindings package
-  shell: apm install eclipse-keybindings
-  environment: proxy_env
-  changed_when: false
+  with_items:
+    - eclipse-keybindings
+    - asciidoc-preview
+    - language-groovy
+  tags: atom
 
 - name: Set Atom Preferences
   copy: src=atom-config.cson dest="{{ user.home }}/.atom/config.cson"
