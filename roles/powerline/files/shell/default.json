@@ -2,6 +2,13 @@
 	"segments": {
 		"left": [
 			{
+				"function": "powerline.segments.common.env.environment",
+				"priority": 30,
+				"args": {
+				  "variable": "MODE"
+				}
+			},
+			{
 				"function": "powerline.segments.common.time.date",
 				"args": {
 				  "format": "%H:%M:%S"
@@ -13,10 +20,6 @@
 			{
 				"function": "powerline.segments.common.net.hostname",
 				"priority": 10
-			},
-			{
-				"function": "powerline.segments.common.env.user",
-				"priority": 30
 			},
 			{
 				"function": "powerline.segments.shell.cwd",
