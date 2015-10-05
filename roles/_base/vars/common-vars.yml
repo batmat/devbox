@@ -9,3 +9,5 @@ tools:
   path: "{{ user.home }}/.tools"
 
 cachedir: "{{ user.home }}/.cache/tools"
+
+tmpdir: "{{ user.home }}/dev/tmp"

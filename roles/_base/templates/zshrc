@@ -35,6 +35,8 @@ alias search='sudo dnf search'
 alias h='history'
 alias c='clear'
 
+alias tmp='tmpcwd={{ tmpdir }}/$RANDOM; echo "Switching to tmp working dir $tmpcwd" && mkdir -p $tmpcwd && cd $tmpcwd'
+
 #Buggy KDE5 Plasmashell, to restart easily
 alias kp='killall plasmashell ; nohup plasmashell >/dev/null&'
 
