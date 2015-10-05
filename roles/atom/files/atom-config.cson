@@ -7,7 +7,7 @@
     invisibles: {}
     showLineNumbers: true
     fontSize: 16
-    softWrap: true
+    softWrap: false
     softWrapAtPreferredLineLength: true
     showIndentGuide: true
     preferredLineLength: 100
