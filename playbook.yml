@@ -33,3 +33,4 @@
       - ffmpegthumbs
       - kde-partitionmanager
       - jq
+      - moreutils
