@@ -11,7 +11,9 @@
   template:
     src=PackageControl.sublime-settings
     dest="{{ user.home }}/.config/sublime-text-3/Packages/User/Package Control.sublime-settings"
-  tags: fast
+  tags:
+    - fast
+    - proxy
 
 - name: add zshrc sublime chunk
   template: src=zshrc-sublime dest="{{ user.home }}/.zshrc-chunks/sublime"

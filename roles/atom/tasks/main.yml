@@ -10,6 +10,7 @@
   tags:
     - atom
     - fast
+    - proxy
 
 - name: Install Atom Asciidoctor Packages
   shell: apm install {{ item }}

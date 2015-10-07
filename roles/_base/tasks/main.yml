@@ -1,5 +1,7 @@
 - include_vars: common-vars.yml
-  tags: fast
+  tags:
+    - fast
+    - proxy
 
 - name: Check that the current machine is a Fedora 22
   assert: { that: "ansible_distribution == 'Fedora' and ansible_distribution_version == '22'" }
@@ -12,24 +14,32 @@
   register: i_am_at_work
   ignore_errors: yes
   changed_when: false
-  tags: fast
+  tags:
+    - fast
+    - proxy
 
 - name: check if I'm at work
   set_fact: at_work={{ true if i_am_at_work.rc == 0 else false }}
-  tags: fast
+  tags:
+    - fast
+    - proxy
 
 - debug: var=at_work
 
 - include_vars: work-vars.yml.vault
   when: at_work == true
-  tags: fast
+  tags:
+    - fast
+    - proxy
 
 ###############################################################################################
 # dnf configuration
 #
 - name: add dnf conf file
   template: src=dnf.conf owner=root group=root dest=/etc/dnf/dnf.conf mode=644
-  tags: fast
+  tags:
+    - fast
+    - proxy
   become: yes
 
 ###############################################################################################
@@ -70,7 +80,9 @@
 
 - name: add zshrc file
   template: src=zshrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.zshrc mode=644
-  tags: fast
+  tags:
+    - fast
+    - proxy
 
 - name: init zshrc chunks directory
   file: path={{ user.home }}/.zshrc-chunks state=directory

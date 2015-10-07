@@ -39,14 +39,18 @@
   template: src=docker-systemd-config owner=root group=root dest=/usr/lib/systemd/system/docker.service
   notify:
    - restart docker
-  tags: fast
+  tags:
+    - fast
+    - proxy
 
 - name: Docker config file
   become: yes
   template: src=docker-sysconfig owner=root group=root dest=/etc/sysconfig/docker
   notify:
    - restart docker
-  tags: fast
+  tags:
+    - fast
+    - proxy
 
 - name: start and configure Docker
   service: name=docker state=started
