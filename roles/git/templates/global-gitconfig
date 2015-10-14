@@ -1,0 +1,15 @@
+[alias]
+        d = diff
+        rh = reset --hard
+        rho = reset --hard origin/master
+        ci = commit
+        co = checkout
+[push]
+        default = simple
+[user]
+        name = {{ user.name }}
+        email = {{ user.email }}
+[rebase]
+        autosquash = true
+[commit]
+        template = {{ user.home }}/.git_commit_template

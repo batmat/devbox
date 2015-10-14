@@ -7,11 +7,12 @@
    - git-gui
    - tig
 
-- name: configure git
-  shell: >
-     git config --global user.email '{{ user.email }}' &&
-     git config --global user.name '{{ user.fullName }}'
-  changed_when: false
+- name: configure global git config
+  template: src=global-gitconfig dest="{{ user.home }}/.gitconfig"
+  tags: fast
+
+- name: copy Git commit message template
+  template: src=commit-template dest="{{ user.home }}/.git_commit_template"
   tags: fast
 
 - name: add zshrc chunk
