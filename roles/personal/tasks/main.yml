@@ -1,0 +1,6 @@
+---
+# Things unlikely to be of interest for anyone else than me :-)
+
+- name: add zshrc chunk
+  template: src=zshrc-personal dest="{{ user.home }}/.zshrc-chunks/perso"
+  tags: fast

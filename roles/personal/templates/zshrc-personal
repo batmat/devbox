@@ -1,0 +1,10 @@
+alias process-media='docker run --rm -it -v $PWD:/photos batmat/process-media && \
+                     sudo chown $(id -u):$(id -g) *'
+function rotate-video {
+  docker run --rm -it -v $PWD:/photos batmat/rotate-video $@
+  sudo chown $(id -u):$(id -g) *
+}
+
+function trash {
+  kioclient move $@ trash://
+}
