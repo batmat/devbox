@@ -91,3 +91,7 @@
 - name: add vimrc file
   template: src=vimrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.vimrc mode=644
   tags: fast
+
+- name: set ssh global configuration
+  template: src=ssh-global-config dest={{ user.home }}/.ssh/config owner={{ user.name }} group={{ user.name }} mode=644
+  tags: fast
