@@ -26,11 +26,15 @@
 - name: Create local configuration directories
   file: path="{{ user.home }}/.config/powerline/themes/shell" state=directory
   file: path="{{ user.home }}/.config/powerline/colorschemes" state=directory
-  tags: powerline
+  tags:
+    - powerline
+    - fast
 
 - name: Copy config for shell
   copy: src=shell/default.json dest="{{ user.home }}/.config/powerline/themes/shell/"
-  tags: powerline
+  tags:
+    - powerline
+    - fast
 
 - name: Install powerline-gitstatus segment
   pip: name=powerline-gitstatus version=v1.1.0
@@ -38,8 +42,12 @@
 
 - name: Copy colorschemes config (for powerline-gitstatus)
   copy: src=colorschemes/default.json dest="{{ user.home }}/.config/powerline/colorschemes/"
-  tags: powerline
+  tags:
+    - powerline
+    - fast
 
 - name: add zshrc chunk for powerline
   template: src=zshrc-powerline dest="{{ user.home }}/.zshrc-chunks/powerline"
-  tags: powerline
+  tags:
+    - powerline
+    - fast
