@@ -4,6 +4,7 @@
   with_items:
    - vagrant
    - VirtualBox # not compulsory for vagrant, but far better indeed
+   - akmod-VirtualBox
    - kernel-devel
 
 ###############################################################################################
