@@ -96,3 +96,5 @@ if [ -d $ZSHRC_CHUNKS ]; then
     source $zshrc_chunk
   done
 fi
+
+. ~/.quick-switch.sh

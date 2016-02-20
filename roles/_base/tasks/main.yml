@@ -88,6 +88,10 @@
   file: path={{ user.home }}/.zshrc-chunks state=directory
   tags: fast
 
+- name: add quick-switch script
+  template: src=quick-switch owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.quick-switch.sh mode=0644
+  tags: fast
+
 - name: add vimrc file
   template: src=vimrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.vimrc mode=644
   tags: fast

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+flagfile=$HOME/.quick-switch-flagfile
+flagdate=$(stat -c %X $flagfile)
+
+if [[ $(( $(date +%s ) - $flagdate )) -lt 30 ]]
+then
+  echo "analyse recente, stop"
+  return 0
+fi
+
+touch $flagfile
+
+if ping -c 1 mipih.net > /dev/null 2>&1
+then
+  # Si ping indique qu'on est au mipih
+  # mais pas mode mipih, alors il faut rafraîchir
+  if [[ $MODE = '\o/' ]]; then
+     echo "Au mipih en fait ? Refresh du mode"
+     resetenv -t fast
+   else
+     echo "Mode OK"
+  fi
+else
+  # si ping indique pas au mipih
+  # mais mode mipih, Refresh
+  if [[ $MODE = "('_')" ]]; then
+     echo "Maison ? Woohooo ! Refresh du mode"
+     resetenv -t fast
+   else
+     echo "Mode OK"
+  fi
+fi
