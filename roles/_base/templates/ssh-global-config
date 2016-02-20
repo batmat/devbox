@@ -1,5 +1,5 @@
-Host git
-HostName git.mipih.net
+Host *
+UseRoaming no
+
+Host *.mipih.net git
 KexAlgorithms +diffie-hellman-group1-sha1
-
-
