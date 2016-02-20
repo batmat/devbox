@@ -36,6 +36,13 @@
 				"priority": 10
 			},
 			{
+				"function": "powerline.segments.common.env.environment",
+				"priority": 30,
+				"args": {
+				  "variable": "DOCKER_HOST"
+				}
+			},
+			{
 				"function": "powerline_gitstatus.gitstatus",
 				"priority": 40
 			},
