@@ -15,4 +15,9 @@ function docker_clean_orphan_volumes() {
    docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes $@
 }
 alias dclean-orphan-volumes=docker_clean_orphan_volumes
+
+# It's happened to me many times data containers would eat all my inodes
+# hence adding an alias to find out which directory is eating the most
+# and also making it easier to remember and reuse in the future...
+alias top-inodes-usage='sudo find . -xdev -type f | cut -d "/" -f 2 | sort | uniq -c | sort -n'
 ############ <<<DOCKER
