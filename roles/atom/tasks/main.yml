@@ -1,4 +1,4 @@
-- { include: get-and-cache.yml, toget: "http://atom.io/download/rpm" }
+- { include: get-and-cache.yml, toget: "https://atom.io/download/rpm" }
 
 - name: Install Atom Text Editor
   become: yes
