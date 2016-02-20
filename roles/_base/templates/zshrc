@@ -49,6 +49,8 @@ function resetenv() {
   source $HOME/.zshrc
 }
 alias r=resetenv
+alias rf='r -t fast'
+alias rp='r -t proxy'
 
 function _ansibleinitrole() {
   if [[ $# != 1 ]]; then
