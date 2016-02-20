@@ -1,0 +1,16 @@
+---
+- name: clone fzf repository
+  git: repo=https://github.com/junegunn/fzf.git dest={{ user.home }}/.fzf
+  environment: proxy_env
+  tags: fzf
+
+- name: install fzf
+  shell: "{{ user.home }}/.fzf/install --all"
+  changed_when: false
+  tags: fzf
+
+- name: add zshrc fzf chunk
+  template: src=zshrc-fzf dest="{{ user.home }}/.zshrc-chunks/fzf"
+  tags:
+    - fast
+    - fzf

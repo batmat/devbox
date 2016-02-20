@@ -15,6 +15,7 @@
     - { role: sublime }
     - { role: maven }
     - { role: powerline }
+    - { role: fzf }
 
   tasks:
 
