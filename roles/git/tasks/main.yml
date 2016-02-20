@@ -5,6 +5,7 @@
    - git
    - git-svn
    - git-gui
+   - aspell-fr # for git gui typo checking
    - tig
 
 - name: configure global git config
