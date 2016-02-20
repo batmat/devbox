@@ -4,3 +4,21 @@
 - name: add zshrc chunk
   template: src=zshrc-personal dest="{{ user.home }}/.zshrc-chunks/perso"
   tags: fast
+
+- name: cache useful images
+  become: yes
+  shell: docker pull {{ item }}
+  with_items:
+    - batmat/asciidoctor-prez
+    - batmat/process-media
+    - batmat/rotate-video
+    - pashi/garmin-antfs
+    - busybox
+    - alpine
+    - swarm
+    - jenkins:1.625.3
+    - debian
+    - fedora
+    - centos
+  register: result
+  changed_when: "'Status: Image is up to date for' not in result.stdout"

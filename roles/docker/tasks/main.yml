@@ -77,20 +77,6 @@
   become: yes
   file: path=/usr/local/bin/docker-compose state=file mode="u+rx,a+x,g+x"
 
-- name: cache useful images
-  become: yes
-  shell: docker pull {{ item }}
-  with_items:
-    - batmat/asciidoctor-prez
-    - busybox
-    - alpine
-    - swarm
-    - jenkins:1.609.3
-    - debian
-    - fedora
-    - centos
-  register: result
-  changed_when: "'Status: Image is up to date for' not in result.stdout"
 
 - name: add zshrc docker chunk
   template: src=zshrc-docker dest="{{ user.home }}/.zshrc-chunks/docker"
