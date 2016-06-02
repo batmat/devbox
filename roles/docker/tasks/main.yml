@@ -3,7 +3,6 @@
   with_items:
     - docker
     - docker.io
-  tags: fast
 
 - name: Add Official Docker RPM repository
   become: yes
