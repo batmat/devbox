@@ -20,6 +20,7 @@
     - eclipse-keybindings
     - asciidoc-preview
     - language-groovy
+    - language-docker
   tags: atom
 
 - name: Set Atom Preferences
