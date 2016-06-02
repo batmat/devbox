@@ -16,9 +16,13 @@
     - busybox
     - alpine
     - swarm
-    - jenkins:1.625.3
+    - jenkins:2.6
+    - jenkins:1.651.2
     - debian
-    - fedora
-    - centos
+    - fedora:23
+    - centos:7
   register: result
   changed_when: "'Status: Image is up to date for' not in result.stdout"
+  tags:
+    - docker
+    - dockercache
