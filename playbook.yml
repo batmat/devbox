@@ -3,7 +3,7 @@
   connection: local
   roles:
     - { role: _base }
-    - { role: personal }
+    - { role: _personal }
     - { role: atom }
     - { role: docker }
     - { role: git }
