@@ -1,0 +1,34 @@
+---
+# Originally inspired by https://fedoramagazine.org/getting-started-i3-window-manager/
+# and then customized for my needs
+
+- name: Install required packages
+  dnf: name={{ item }} state=present
+  with_items:
+    - i3
+    - i3status
+    - i3lock
+    - feh
+    - xbacklight
+    - xautolock
+    - synapse # dmenu alternative
+    - dunst # notifications
+    - network-manager-applet
+
+- name: Set i3 configuration
+  copy: src=i3_config dest={{ user.home }}/.config/i3/config
+  tags:
+    - dunst
+    - fast
+
+- name: Set i3status configuration
+  copy: src=i3status_config dest={{ user.home }}/.config/i3status/config
+  tags:
+    - dunst
+    - fast
+
+- name: Set dunst (desktop notifications) configuration
+  copy: src=dunst_config dest={{ user.home }}/.config/dunst/dunstrc
+  tags:
+    - dunst
+    - fast

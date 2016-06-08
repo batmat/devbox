@@ -16,6 +16,7 @@
     - { role: maven }
     - { role: powerline }
     - { role: fzf }
+    - { role: i3wm }
 
   tasks:
 
