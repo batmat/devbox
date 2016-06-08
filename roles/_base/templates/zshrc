@@ -52,7 +52,7 @@ alias r=resetenv
 alias rf='r -t fast'
 alias rp='r -t proxy'
 
-function _ansibleinitrole() {
+function ansible-init-role() {
   if [[ $# != 1 ]]; then
     echo "Usage: $0 roleName"
     return 1
@@ -63,9 +63,9 @@ function _ansibleinitrole() {
   fi
   mkdir $1
   mkdir $1/files $1/handlers $1/meta $1/templates $1/tasks $1/vars
+  echo -e "---\n" > $1/tasks/main.yml
   echo "[OK] Role $1 initialized successfully"
 }
-alias ansible-init-role=_ansibleinitrole
 
 {% if at_work == true %}
 export MODE="('_')"
