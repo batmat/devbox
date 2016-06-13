@@ -10,7 +10,7 @@
 # Checking if currently at work to set the variable
 #
 - name: at work ?
-  shell: "ping -c1 -i 0.2 mipih.net"
+  shell: "ping -c1 -w 1 -i 0.2 mipih.net"
   register: i_am_at_work
   ignore_errors: yes
   changed_when: false
