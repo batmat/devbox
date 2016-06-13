@@ -4,3 +4,8 @@ alias gpr='git pull --rebase'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 
 export PATH=$PATH:/opt/hub
+
+# https://confluence.atlassian.com/bitbucketserver/permanently-authenticating-with-git-repositories-776639846.html
+# Must apparently be called each time at startup so that Git actually takes it in account ?!?
+# value in seconds below
+git config --global credential.helper 'cache --timeout=21600'
