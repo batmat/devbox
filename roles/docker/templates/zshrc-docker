@@ -4,7 +4,31 @@ alias dl='docker ps -l -q'
 alias dm='docker-machine'
 alias dc='docker-compose'
 alias swarm='docker run --rm swarm'
-alias dclean-all-exited-containers='docker ps -aq --filter 'status=exited' | xargs --no-run-if-empty docker rm --volumes=true'
+
+export DOCKER_KEEP_SUFFIX=_keep
+
+dkeep() {
+  if [[ $1 = "run" ]]; then
+    docker run --label=keep=true "${@:2}"
+  elif docker ps --all --format "{{.ID}} {{.Names}}" | grep  $1 ; then
+    docker rename "$1" "${1}${DOCKER_KEEP_SUFFIX}"
+  else
+    echo "Don't get what you mean, dude..."
+  fi
+}
+dclean-all-exited-containers() {
+  all=$( docker ps -aq --filter 'status=exited' )
+
+  for labeled in $( docker ps -aq --filter 'label=keep' ); do
+    all=$( echo $all | grep -v $labeled )
+  done
+
+  for named   in $( docker ps -aq  --filter "name=$DOCKER_KEEP_SUFFIX" ); do
+    all=$( echo $all | grep -v $named )
+  done
+
+  echo $all | xargs --no-run-if-empty docker rm
+}
 alias dclean-old-containers="docker ps -a --filter 'status=exited' | grep 'days ago' | awk '{print $1}' | xargs --no-run-if-empty docker rm --volumes=true"
 alias dclean-dangling-images='docker images --filter dangling=true --quiet | xargs --no-run-if-empty docker rmi'
 
