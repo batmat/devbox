@@ -23,6 +23,7 @@
     - language-docker
     - file-icons
     - language-ansible
+    - minimap
   tags: atom
 
 - name: Set Atom Preferences
