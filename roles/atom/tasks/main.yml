@@ -21,6 +21,7 @@
     - asciidoc-preview
     - language-groovy
     - language-docker
+    - file-icons
   tags: atom
 
 - name: Set Atom Preferences
