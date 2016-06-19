@@ -22,6 +22,7 @@
     - language-groovy
     - language-docker
     - file-icons
+    - language-ansible
   tags: atom
 
 - name: Set Atom Preferences
