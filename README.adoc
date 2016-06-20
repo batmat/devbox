@@ -1,5 +1,13 @@
 = devbox
 
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
 This project is designed to automate the whole configuration of your dev machine using Ansible.
 
 I have tried to make the project reusable. So, if you like that idea and would like to customize it for your needs please read below.
