@@ -114,7 +114,6 @@ TIP: You can add any `ansible-playbook` options to resetenv shell script. Exampl
 * manage home/work Maven settings
 * parameterize some roles if needed
   (e.g. be able to ask for docker roles, but without docker-compose for example)
-* PS1 add current docker daemon port/address if not localhost
 * Extract vars directory from subrole(s). IMO does not make sense to have
   custom user configuration inside the role directory itself.
 
