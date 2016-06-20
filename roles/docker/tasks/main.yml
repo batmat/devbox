@@ -86,5 +86,5 @@
     - cron
 
 - name: add zshrc docker chunk
-  template: src=zshrc-docker dest="{{ user.home }}/.zshrc-chunks/docker"
+  copy: src=zshrc-docker dest="{{ user.home }}/.zshrc-chunks/docker"
   tags: fast
