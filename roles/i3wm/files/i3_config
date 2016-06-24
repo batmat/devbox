@@ -60,6 +60,7 @@ bindsym $mod+F9 exec "i3-msg 'workspace Web; exec /usr/bin/google-chrome'"
 bindsym $mod+F10 exec "i3-msg 'workspace IRC; exec /usr/bin/lxterminal -e ssh root@vpsovh'"
 bindsym $mod+F12 exec "atom --new-window ~/.config/i3/config ~/.config/i3status/config"
 bindsym Control+$alt+l exec "$locker"
+bindsym Scroll_Lock exec "$locker"
 
 
 # scrot & gimp - select

@@ -3,28 +3,35 @@
 # and then customized for my needs
 
 - name: Install required packages
+  become: yes
   dnf: name={{ item }} state=present
   with_items:
     - i3
     - i3status
     - i3lock
+    - scrot # for bg image during lock
+    - ImageMagick # same ^
     - feh
     - xbacklight
     - xautolock
     - synapse # dmenu alternative
     - dunst # notifications
     - network-manager-applet
+    - konsole # my default one TODO : put that in var
+    - lxterminal # same : TODO ^
+  tags: i3wm
 
 - name: Set i3 configuration
   copy: src=i3_config dest={{ user.home }}/.config/i3/config
   tags:
     - dunst
     - fast
+    - i3wm
 
 - name: Set i3status configuration
   copy: src=i3status_config dest={{ user.home }}/.config/i3status/config
   tags:
-    - dunst
+    - i3wm
     - fast
 
 - name: Set dunst (desktop notifications) configuration

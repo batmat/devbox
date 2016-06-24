@@ -1,4 +1,5 @@
 - name: Check possibly conflicting docker packages are *not* installed
+  become: yes
   dnf: name={{ item }} state=absent
   with_items:
     - docker

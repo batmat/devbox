@@ -6,7 +6,8 @@
 - name: Download font
   get_url:
     url: https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
-    dest: "{{ user.home }}/.fonts//PowerlineSymbols.otf"
+    dest: "{{ user.home }}/.fonts/PowerlineSymbols.otf"
+  environment: "{{proxy_env}}"
   tags: powerline
 
 - name: Regenerating font cache
@@ -21,11 +22,14 @@
   get_url:
     url: https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
     dest: "{{ user.home }}/.config/fontconfig/conf.d/10-powerline-symbols.conf"
+  environment: "{{proxy_env}}"
   tags: powerline
 
 - name: Create local configuration directories
-  file: path="{{ user.home }}/.config/powerline/themes/shell" state=directory
-  file: path="{{ user.home }}/.config/powerline/colorschemes" state=directory
+  file: path="{{ item }}" state=directory
+  with_items:
+    - "{{ user.home }}/.config/powerline/themes/shell"
+    - "{{ user.home }}/.config/powerline/colorschemes"
   tags:
     - powerline
     - fast
