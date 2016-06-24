@@ -57,11 +57,11 @@
   become: yes
   tags: fast
 
-- { include: get-and-cache.yml, toget: "https://github.com/docker/machine/releases/download/v0.5.2/docker-machine_linux-amd64.zip" }
+- { include: get-and-cache.yml, toget: "https://github.com/docker/machine/releases/download/v0.7.0/docker-machine-Linux-x86_64" }
 
-- name: Install Docker machine *
+- name: Install Docker machine
   become: yes
-  unarchive: src="{{ cached }}" dest=/usr/local/bin
+  copy: src="{{ cached }}" dest=/usr/local/bin/docker-machine
 
 - name: Make Docker Machine executable
   become: yes
