@@ -17,23 +17,6 @@
     - { role: powerline }
     - { role: fzf }
     - { role: i3wm }
+    - { role: autojump }
 
   tasks:
-
-    - name: Install personal packages
-      become: yes
-      dnf: name={{ item }} state=present
-      with_items:
-      - grisbi
-      - keepass
-      - gimp
-      - ImageMagick
-      - baobab
-      - audacity
-      - vlc
-      - kphotoalbum
-      - fdupes
-      - ffmpegthumbs
-      - kde-partitionmanager
-      - jq
-      - moreutils

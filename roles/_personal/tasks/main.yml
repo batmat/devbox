@@ -1,9 +1,41 @@
 ---
 # Things unlikely to be of interest for anyone else than me :-)
 
-- name: add zshrc chunk
-  template: src=zshrc-personal dest="{{ user.home }}/.zshrc-chunks/perso"
+- name: Add zshrc chunk
+  file: src=zshrc-personal dest="{{ user.home }}/.zshrc-chunks/perso"
   tags: fast
+
+- name: Set wheel group sudoers without password
+  become: yes
+  lineinfile: "dest=/etc/sudoers state=present regexp='^%wheel' line='%wheel ALL=(ALL) NOPASSWD: ALL' validate='visudo -cf %s'"
+  tags: fast
+
+- name: Configure Login Manager (logind.conf)
+  become: yes
+  copy: src=logind.conf dest=/etc/systemd/logind.conf
+  tags:
+    - fast
+    - bim
+
+- name: Install personal packages
+  become: yes
+  dnf: name={{ item }} state=present
+  tags: pouet
+  with_items:
+    - grisbi
+    - keepass
+    - gimp
+    - ImageMagick
+    - baobab
+    - audacity
+    - vlc
+    - kphotoalbum
+    - fdupes
+    - kde-partitionmanager
+    - jq
+    - moreutils
+    - NetworkManager
+    - lxrandr # useful complement to xrandr to quickly set up screen for prez
 
 - name: cache useful images
   become: yes
@@ -16,8 +48,8 @@
     - busybox
     - alpine
     - swarm
-    - jenkins:2.6
-    - jenkins:1.651.2
+    - jenkinsci/jenkins:latest
+    - jenkins:1.651.3 # go to 2.7.1 when published
     - debian
     - fedora:23
     - centos:7
