@@ -45,13 +45,13 @@
 ###############################################################################################
 # install packages
 #
-- { include: get-and-cache.yml, toget: "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-22.noarch.rpm" }
+- { include: get-and-cache.yml, toget: "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-24.noarch.rpm" }
 
 - name: Install RPMFusion free repository
   become: yes
   dnf: name="{{ cached }}" state=present
 
-- { include: get-and-cache.yml, toget: "http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-22.noarch.rpm" }
+- { include: get-and-cache.yml, toget: "http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-24.noarch.rpm" }
 
 - name: Install RPMFusion non-free repository
   become: yes
