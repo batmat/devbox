@@ -1,0 +1,9 @@
+---
+
+- name: Install required packages
+  become: yes
+  dnf: name={{ item }} state=present
+  with_items:
+    - autojump
+    - autojump-zsh
+  tags: autojump
