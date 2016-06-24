@@ -76,7 +76,7 @@
 
 - name: install oh-my-zsh
   git: repo=https://github.com/robbyrussell/oh-my-zsh dest={{ user.home }}/.oh-my-zsh
-  environment: proxy_env
+  environment: "{{proxy_env}}"
 
 - name: add zshrc file
   template: src=zshrc owner={{ user.name }} group={{ user.name }} dest={{ user.home }}/.zshrc mode=644

@@ -8,7 +8,7 @@
 
 - name: Clone JEnv
   git: repo=https://github.com/gcuisinier/jenv.git  dest="{{ user.home }}/.jenv"
-  environment: proxy_env
+  environment: "{{proxy_env}}"
 
 - name: add zshrc chunk
   template: src=zshrc-java dest="{{ user.home }}/.zshrc-chunks/java"

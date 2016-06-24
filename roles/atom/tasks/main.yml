@@ -12,9 +12,20 @@
     - fast
     - proxy
 
+# Without that, one can have a Warning:
+# "Unable to watch path: config.cson. Make sure you have permissions to ~/.atom/config.cson.
+# On linux there are currently problems with watch sizes. See this document for more info."
+# https://github.com/atom/atom/blob/master/docs/build-instructions/linux.md#typeerror-unable-to-watch-path
+- name: Put higher number for fs.inotify.max_user_watches
+  become: yes
+  lineinfile: dest=/etc/sysctl.conf line="fs.inotify.max_user_watches = 300000" insertafter=EOF
+  tags:
+    - atom
+    - fast
+
 - name: Install Atom Asciidoctor Packages
   shell: apm install {{ item }}
-  environment: proxy_env
+  environment: "{{proxy_env}}"
   changed_when: false
   with_items:
     - eclipse-keybindings
