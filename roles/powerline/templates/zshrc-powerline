@@ -1,1 +1,3 @@
-. /usr/share/powerline/zsh/powerline.zsh 
+. /usr/share/powerline/zsh/powerline.zsh
+
+powerline-daemon -q

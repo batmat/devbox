@@ -41,7 +41,9 @@
     - fast
 
 - name: Install powerline-gitstatus segment
-  pip: name=powerline-gitstatus version=v1.1.0
+  become: yes
+  environment: "{{proxy_env}}"
+  pip: name=powerline-gitstatus version=v1.2.1
   tags: powerline
 
 - name: Copy colorschemes config (for powerline-gitstatus)
