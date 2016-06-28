@@ -2,7 +2,7 @@
 # Things unlikely to be of interest for anyone else than me :-)
 
 - name: Add zshrc chunk
-  file: src=zshrc-personal dest="{{ user.home }}/.zshrc-chunks/perso"
+  copy: src=zshrc-personal dest="{{ user.home }}/.zshrc-chunks/perso"
   tags: fast
 
 - name: Set wheel group sudoers without password
@@ -58,3 +58,18 @@
   tags:
     - docker
     - dockercache
+
+- name: Create custom scripts directory
+  file: name="{{ user.home }}/.bin" state=directory
+  tags:
+    - perso
+    - fast
+
+- name: Copy custom scripts
+  copy: src="{{item}}" dest="{{ user.home }}/.bin/{{ item }}" mode="u+rx"
+  with_items:
+    - "xrandr-double-screen.sh"
+    - "xrandr-reset-LVDS.sh"
+  tags:
+    - perso
+    - fast
