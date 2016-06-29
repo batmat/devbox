@@ -3,9 +3,7 @@
   dnf: name={{ item }} state=present
   with_items:
    - vagrant
-   - VirtualBox # not compulsory for vagrant, but far better indeed
-   - akmod-VirtualBox
-   - kernel-devel
+   - VirtualBox-5.0 # not compulsory for vagrant, but far better indeed
 
 ###############################################################################################
 # VirtualBox specifics (create a dedicated VB role, todo?)
@@ -15,17 +13,7 @@
 # it must be aligned/republished with the latest kernel and rarely is.
 
 # TODO : /idempotentize/
-- name: Configure kernel module for VirtualBox
-  become: yes
-  shell:  'akmods --kernel $( uname -r )'
-  changed_when: false
-  tags: VirtualBox
 
-- name: Configure kernel module for VirtualBox
-  become: yes
-  shell: systemctl restart systemd-modules-load.service
-  changed_when: false
-  tags: VirtualBox
 
 - name: add zshrc chunk
   template: src=zshrc-vagrant dest="{{ user.home }}/.zshrc-chunks/vagrant"

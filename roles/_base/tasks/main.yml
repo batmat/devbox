@@ -4,7 +4,7 @@
     - proxy
 
 - name: Check that the current machine is a Fedora 23
-  assert: { that: "ansible_distribution == 'Fedora' and ansible_distribution_version == '23'" }
+  assert: { that: "ansible_distribution == 'Fedora' and ansible_distribution_version == '24'" }
 
 ###############################################################################################
 # Checking if currently at work to set the variable
