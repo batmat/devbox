@@ -12,6 +12,7 @@
 set $mod Mod4
 set $alt Mod1
 set $locker '/home/tiste/.i3wm/lockscreen.sh'
+set $ide ~/.tools/idea-IC-162.1628.40/bin/idea.sh
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -57,6 +58,8 @@ bindsym XF86AudioMute        exec "amixer -q sset Master,0 toggle"
 bindsym $mod+F1 exec google-chrome
 bindsym $mod+F2 exec atom
 bindsym $mod+F3 exec "~/.tools/idea-IC-143.1184.17/bin/idea.sh"
+bindsym $mod+i exec "i3-msg 'workspace IDE; exec $ide'"
+bindsym $mod+Shift+i move container to workspace IDE
 bindsym $mod+F4 exec lxterminal
 bindsym $mod+F9 exec "i3-msg 'workspace Web; exec /usr/bin/google-chrome'"
 bindsym $mod+F10 exec "i3-msg 'workspace IRC; exec /usr/bin/lxterminal -e ssh root@vpsovh'"
