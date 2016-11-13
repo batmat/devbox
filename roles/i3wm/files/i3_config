@@ -187,7 +187,7 @@ bar {
 }
 
 
-exec --no-startup-id feh --bg-scale /home/tiste/Dropbox/perso/backgrounds/Kite/05ARW_008.jpg
+exec --no-startup-id /home/tiste/.bin/change-background
 exec --no-startup-id rescuetime
 exec --no-startup-id dropbox start
 exec --no-startup-id ~/.tools/crashplan/bin/crashplan start

@@ -73,6 +73,7 @@
     - "xrandr-double-screen.sh"
     - "xrandr-reset-LVDS.sh"
     - "brightnessctl"
+    - "change-background"
   tags:
     - perso
     - fast

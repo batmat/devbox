@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ "A$1A" != "AA" ] ; then
+  feh --bg-fill $1
+  exit
+fi
+PHOTOS_DIR=$HOME/Dropbox/perso/backgrounds
+photo=$(find $PHOTOS_DIR -type f -name "*JPG" -or -name "*.jpg" | shuf -n 1)
+
+echo "switching to $photo"
+
+feh --bg-fill "$photo"
