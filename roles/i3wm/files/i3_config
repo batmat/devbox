@@ -69,7 +69,9 @@ bindsym Scroll_Lock exec "$locker"
 
 
 # scrot & gimp - select
-bindsym Print exec scrot -e 'mv $f /tmp/ && gimp /tmp/$f'
+bindsym --release Print exec scrot -s -e 'copyq write image/png - < $f && copyq select 0 && mv $f ~/Dropbox/Public/Captures/'
+bindsym --release Control+Print exec scrot -e 'copyq write image/png - < $f && copyq select 0 && mv $f ~/Dropbox/Public/Captures/'
+
 bindsym $mod+e exec "XDG_CURRENT_DESKTOP=kde dolphin"
 
 # alternatively, you can use the cursor keys:
@@ -194,3 +196,4 @@ exec --no-startup-id ~/.tools/crashplan/bin/crashplan start
 exec --no-startup-id xautolock -time 8 -locker $locker &
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
+exec --no-startup-id copyq

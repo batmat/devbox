@@ -19,6 +19,8 @@
     - network-manager-applet
     - konsole # my default one TODO : put that in var
     - lxterminal # same : TODO ^
+    - scrot
+    - copyq # to copy directly img from scrot to clipboard
   tags: i3wm
 
 - name: Set i3 configuration
