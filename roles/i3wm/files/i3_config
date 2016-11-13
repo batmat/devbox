@@ -55,9 +55,8 @@ bindsym XF86AudioLowerVolume exec "amixer -q sset Master 5%- unmute"
 bindsym XF86AudioMute        exec "amixer -q sset Master,0 toggle"
 
 # my shortcuts
-bindsym $mod+F1 exec google-chrome
-bindsym $mod+F2 exec atom
-bindsym $mod+F3 exec "~/.tools/idea-IC-143.1184.17/bin/idea.sh"
+bindsym $mod+F1 exec google-chrome --profile-directory="Default"
+bindsym $mod+F2 exec google-chrome --profile-directory="Profile 1"
 bindsym $mod+i exec "i3-msg 'workspace IDE; exec $ide'"
 bindsym $mod+Shift+i move container to workspace IDE
 bindsym $mod+F4 exec lxterminal
