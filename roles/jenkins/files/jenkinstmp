@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+
+if [[ $# != 2 ]]; then
+  echo "Usage: $0 cjoc-or-cje.war port"
+  exit 1
+fi
+
+echo "Starting $1 on port $2"
+
+JENKINS_HOME=$(pwd) java -jar $1 --httpPort=$2

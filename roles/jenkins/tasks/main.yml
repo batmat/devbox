@@ -1,0 +1,7 @@
+---
+
+- name: Copy custom scripts
+  copy: src="{{item}}" dest="{{ user.home }}/.bin/{{ item }}" mode="u+rx"
+  with_items:
+    - "jenkinstmp"
+  tags: fast

@@ -4,6 +4,7 @@
   roles:
     - { role: _base }
     - { role: _personal }
+    - { role: jenkins }
     - { role: atom }
     - { role: docker }
     - { role: git }
