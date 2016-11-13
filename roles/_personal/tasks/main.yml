@@ -37,7 +37,12 @@
     - NetworkManager
     - lxrandr # useful complement to xrandr to quickly set up screen for prez
     - pavucontrol
-    - dropbox # todo : dedicated role
+    - recordmydesktop
+    - ffmpeg
+    - p7zip
+    - p7zip-gui
+    - unrtf
+    - wireshark
 
 - name: cache useful images
   become: yes
