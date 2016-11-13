@@ -1,0 +1,94 @@
+= Things to do / improve
+
+== TODO
+
+* logind - /etc/systemd/logind.conf
+** Do nothing when touching the lid
+** Auto suspend on low battery
+* SELinux blocks Docker startup Ansible => find another way than `sudo setenforce 0`
+** After some analysis, seems like it's actually /only/ the docker.socket that cannot bind
+* move oh-my-zsh outside _base & so on
+* Continuous Integration on a fresh VM (Vagrant?)
+* ClipGrab?
+* Wifi configuration
+** link:https://onpub.com/install-broadcom-linux-wi-fi-driver-on-fedora-23-s7-a192[Working example]
+* Make APM install quicker (?)
+** Test Kevin's dedicated Ansible module https://github.com/Dunska/ansible-apm-package-module
+* Find subset of `sudo dnf install @kde-desktop` to have icons for dolphin...
+* xsane, xsane-gimp / scanner
+* script to align max res between LVDS & HDMI||VGA? (for presentations)
+** [i.e. lxrandr like]
+
+== Missing to be able to install from scratch -- manual steps
+
+* Packages: libselinux-python ansible zsh python2-dnf
+* Accept Docker key
+
+```
+Total                                                                                                                                           1.4 MB/s |  14 MB     00:09
+attention : /var/cache/yum/x86_64/24/yum.dockerproject.org_repo_main_fedora_23-a428ad29838290c6/packages/docker-engine-1.11.2-1.fc23.x86_64.rpm: Entête V4 RSA/SHA512 Signature, clé ID 2c52609d: NOKEY
+Importation de la clé GPG 0x2C52609D :
+Utilisateur : « Docker Release Tool (releasedocker) <docker@docker.com> »
+Empreinte : 5811 8E89 F3A9 1289 7C07 0ADB F762 2157 2C52 609D
+Provenance : https://yum.dockerproject.org/gpg
+Est-ce correct [o/N] : o
+La clé a été importée avec succès
+
+
+=== Autoriser la lib Python->Docker?
+
+```
+#============= init_t ==============
+allow init_t unconfined_service_t:unix_stream_socket create;
+('_') [15:36:16] tiste:~ $ sudo ausearch -c 'systemd' --raw | audit2allow -M my-systemd
+******************** IMPORTANT ***********************
+To make this policy package active, execute:
+
+semodule -i my-systemd.pp
+
+('_') [15:36:39] tiste:~ $ man semodule
+('_') [15:37:58] tiste:~ $ semodule -X 300 -i my-systemd.pp
+libsemanage.semanage_create_store: Could not access module store at /var/lib/selinux/targeted, or it is not a directory. (Permission denied).
+libsemanage.semanage_direct_connect: could not establish direct connection (Permission denied).
+semodule:  Could not connect to policy handler
+('_') [15:38:00] tiste:~ $ sudo semodule -X 300 -i my-systemd.pp
+```
+
+
+And :
+
+```
+juin 23 15:39:23 localhost.localdomain polkitd[945]: Unregistered Authentication Agent for unix-process:23313:321825 (system bus name :1.412, object path /org/freedesktop/Polic
+juin 23 15:39:26 localhost.localdomain setroubleshoot[20994]: SELinux is preventing systemd from setopt access on the unix_stream_socket Unknown. For complete SELinux messages.
+juin 23 15:39:26 localhost.localdomain python3[20994]: SELinux is preventing systemd from setopt access on the unix_stream_socket Unknown.
+
+                                                       *****  Plugin catchall (100. confidence) suggests   **************************
+
+                                                       If you believe that systemd should be allowed setopt access on the Unknown unix_stream_socket by default.
+                                                       Then you should report this as a bug.
+                                                       You can generate a local policy module to allow this access.
+                                                       Do
+                                                       allow this access for now by executing:
+                                                       # ausearch -c 'systemd' --raw | audit2allow -M my-systemd
+                                                       # semodule -X 300 -i my-systemd.pp
+
+juin 23 15:39:26 localhost.localdomain org.fedoraproject.Setroubleshootd[1607]: (setroubleshoot:21657): Gtk-CRITICAL **: gtk_grid_attach: assertion '_gtk_widget_get_parent (chi
+('_') [15:39:40] tiste:~ $ ausearch -c 'systemd' --raw | audit2allow -M my-systemd2
+Error opening config file (Permission denied)
+NOTE - using built-in logs: /var/log/audit/audit.log
+Error opening /var/log/audit/audit.log (Permission denied)
+Nothing to do
+('_') [15:39:43] tiste:~ $ sudo ausearch -c 'systemd' --raw | audit2allow -M my-systemd2
+******************** IMPORTANT ***********************
+To make this policy package active, execute:
+
+semodule -i my-systemd2.pp
+
+('_') [15:39:47] tiste:~ $ vi my-systemd2.*
+2 fichiers à éditer
+('_') [15:40:07] tiste:~ $ semodule -X 300 -i my-systemd2.pp
+libsemanage.semanage_create_store: Could not access module store at /var/lib/selinux/targeted, or it is not a directory. (Permission denied).
+libsemanage.semanage_direct_connect: could not establish direct connection (Permission denied).
+semodule:  Could not connect to policy handler
+('_') [15:40:24] tiste:~ $ sudo semodule -X 300 -i my-systemd2.pp
+```
