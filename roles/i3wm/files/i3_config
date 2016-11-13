@@ -66,6 +66,7 @@ bindsym $mod+F10 exec "i3-msg 'workspace IRC; exec /usr/bin/lxterminal -e ssh ro
 bindsym $mod+F12 exec "atom --new-window ~/.config/i3/config ~/.config/i3status/config"
 bindsym Control+$alt+l exec "$locker"
 bindsym Scroll_Lock exec "$locker"
+bindsym $mod+s exec $locker && sudo systemctl suspend
 
 
 # scrot & gimp - select
