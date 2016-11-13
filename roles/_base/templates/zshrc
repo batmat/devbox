@@ -46,8 +46,11 @@ export EDITOR=vim
 alias http='docker run -it --rm --net=host clue/httpie'
 
 function resetenv() {
+  # temporarily disabling SELinux waiting for https://github.com/docker/docker/issues/23981
+  sudo setenforce 0
   {{ resetenv_path }}/resetenv $@
   source $HOME/.zshrc
+  sudo setenforce 1
 }
 alias r=resetenv
 alias rf='r -t fast'
