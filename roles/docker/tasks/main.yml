@@ -34,9 +34,14 @@
   user: name="{{ user.name }}" groups=docker append=yes
   tags: fast
 
+- name: Create Docker Systemd configuration override directory
+  become: yes
+  file: name=/etc/systemd/system/docker.service.d/ state=directory owner=root
+  tags: fast
+
 - name: Docker systemd configuration
   become: yes
-  template: src=docker-systemd-config owner=root group=root dest=/usr/lib/systemd/system/docker.service
+  template: src=docker-systemd-override-config owner=root group=root dest=/etc/systemd/system/docker.service.d/override.conf
   notify:
    - restart docker
   tags:
