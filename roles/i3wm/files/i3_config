@@ -42,8 +42,10 @@ bindsym $alt+F4 kill
 bindsym $alt+F2 exec synapse
 
 # screen brightness mgmt
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10%
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10%
+#bindsym XF86MonBrightnessUp exec xbacklight -inc 10%
+bindsym XF86MonBrightnessUp exec /home/tiste/.bin/brightnessctl +
+#bindsym XF86MonBrightnessDown exec xbacklight -dec 10%
+bindsym XF86MonBrightnessDown exec /home/tiste/.bin/brightnessctl -
 
 # sound mgmt
 # amixer set Master -q 50%+
