@@ -3,7 +3,7 @@
   dnf: name={{ item }} state=present
   with_items:
    - vagrant
-   - VirtualBox-5.0 # not compulsory for vagrant, but far better indeed
+   - VirtualBox # not compulsory for vagrant, but far better indeed
 
 ###############################################################################################
 # VirtualBox specifics (create a dedicated VB role, todo?)
