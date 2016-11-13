@@ -11,7 +11,7 @@ fi
 
 touch $flagfile
 
-if ping -c 1 mipih.net > /dev/null 2>&1
+if ping -c 1 forge.mipih.fr > /dev/null 2>&1
 then
   # Si ping indique qu'on est au mipih
   # mais pas mode mipih, alors il faut rafraîchir
