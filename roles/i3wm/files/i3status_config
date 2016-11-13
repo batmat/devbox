@@ -12,17 +12,20 @@ general {
         separator = "    "
 }
 
+order += "tztime texas_austin"
+order += "tztime sf"
+order += "tztime Au_Sydney"
 order += "disk /"
 order += "disk /home"
 order += "wireless _first_"
 order += "ethernet _first_"
-order += "battery 0"
 order += "tztime local"
+order += "battery 0"
 order += "volume master"
 
 wireless _first_ {
-        format_up = "☢ (%quality at %essid) %ip"
-        format_down = "☢ down"
+        format_up = "W(%quality @ %essid %bitrate) %ip"
+        format_down = "W(down)"
 }
 
 ethernet _first_ {
@@ -42,6 +45,21 @@ battery 0 {
 
 tztime local {
         format = "%a %d/%m/%Y %H:%M:%S"
+}
+
+tztime Au_Sydney {
+        format = "AU %d/%m %H:%M"
+        timezone = "Australia/Sydney"
+}
+
+tztime texas_austin {
+        format = "TX %d/%m %H:%M"
+        timezone = "America/Chicago"
+}
+
+tztime sf {
+        format = "SF %d/%m %H:%M"
+        timezone = "America/Tijuana"
 }
 
 disk "/" {
