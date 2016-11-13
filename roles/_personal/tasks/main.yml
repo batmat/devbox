@@ -51,9 +51,12 @@
     - alpine
     - swarm
     - jenkinsci/jenkins:latest
-    - jenkins:1.651.3 # go to 2.7.1 when published
+    - jenkins:2.7.4
+    - jenkins:2.19.1
+    - jenkins:latest # in case a new one has been published
     - debian
     - fedora:23
+    - fedora:24
     - centos:7
   register: result
   changed_when: "'Status: Image is up to date for' not in result.stdout"
