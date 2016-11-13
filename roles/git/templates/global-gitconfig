@@ -16,3 +16,5 @@
 	template = /home/tiste/.git_commit_template
 [credential]
 	helper = cache --timeout=21600
+[url "git@github.com:"]
+    insteadOf = gh:
