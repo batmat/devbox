@@ -10,8 +10,11 @@ export DOCKER_KEEP_SUFFIX=_keep
 dkeep() {
   if [[ $1 = "run" ]]; then
     docker run --label=keep=true "${@:2}"
-  elif docker ps --all --format "{{.ID}} {{.Names}}" | grep  $1 ; then
-    docker rename "$1" "${1}${DOCKER_KEEP_SUFFIX}"
+  elif docker ps --all --format "{{.ID}} {{.Names}}" | grep  $1 > /dev/null ; then
+    export cid=$( docker ps --all --format "{{.ID}} {{.Names}}" | grep  $1 | cut -d' ' -f 2 )
+    export cid_kept="${cid}${DOCKER_KEEP_SUFFIX}"
+    echo "Renaming $cid to $cid_kept"
+    docker rename "$cid" $cid_kept
   else
     echo "Don't get what you mean, dude..."
   fi
