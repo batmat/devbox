@@ -41,6 +41,10 @@ alias tmp='tmpcwd={{ tmpdir }}/$( date --iso-8601=seconds | sed -e 's/:/h/' -e '
 #Buggy KDE5 Plasmashell, to restart easily
 alias kp='killall plasmashell ; nohup plasmashell >/dev/null&'
 
+# Dolphin alias with the i3 fix
+alias dolphin="XDG_CURRENT_DESKTOP=kde dolphin"
+alias d.='dolphin .'
+
 export EDITOR=vim
 
 alias http='docker run -it --rm --net=host clue/httpie'
