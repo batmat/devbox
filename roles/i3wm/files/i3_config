@@ -9,6 +9,8 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
+focus_follows_mouse no
+
 set $mod Mod4
 set $alt Mod1
 set $locker '/home/tiste/.i3wm/lockscreen.sh'
