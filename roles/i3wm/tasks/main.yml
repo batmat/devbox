@@ -44,7 +44,7 @@
     - fast
 
 - name: Configure Synapse
-  copy: src=synapse-configuration dest={{ user.home }}/.config/synapse/config.json
+  copy: src=synapse-config.json dest={{ user.home }}/.config/synapse/config.json
   tags:
     - dunst
     - fast
