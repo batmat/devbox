@@ -13,3 +13,5 @@ alias antfs='docker run --privileged --rm -v ~/.garmin/fitfiles:/app/data -v /de
 alias prez='export PS1="$ "'
 
 export PATH=$HOME/.bin:$PATH
+
+alias idea='~/.tools/idea-IC-162.1628.40/bin/idea.sh'
