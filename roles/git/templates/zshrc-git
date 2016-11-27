@@ -5,6 +5,7 @@ alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %
 alias clone='git clone'
 alias b='hub browse'
 alias gr='git remote -v'
+alias reflog='git reflog --date=local'
 
 export PATH=$PATH:/opt/hub
 
