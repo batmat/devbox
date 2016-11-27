@@ -14,4 +14,4 @@ alias prez='export PS1="$ "'
 
 export PATH=$HOME/.bin:$PATH
 
-alias idea='~/.tools/idea-IC-162.1628.40/bin/idea.sh'
+alias idea='~/.tools/idea/bin/idea.sh'
