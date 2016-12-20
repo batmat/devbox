@@ -12,9 +12,10 @@ general {
         separator = "    "
 }
 
-order += "tztime texas_austin"
 order += "tztime sf"
 order += "tztime Au_Sydney"
+order += "tztime texas_austin"
+order += "tztime raleigh"
 order += "disk /"
 order += "disk /home"
 order += "wireless _first_"
@@ -50,7 +51,7 @@ battery 0 {
 }
 
 tztime local {
-        format = "%a %d/%m/%Y %H:%M:%S"
+        format = "%a %d/%m/%y %H:%M:%S"
 }
 
 tztime Au_Sydney {
@@ -64,8 +65,13 @@ tztime texas_austin {
 }
 
 tztime sf {
-        format = "SF %d/%m %H:%M"
+        format = "PST %d/%m %H:%M"
         timezone = "America/Tijuana"
+}
+
+tztime raleigh {
+        format = "EST %d/%m %H:%M"
+        timezone = "America/New_York"
 }
 
 disk "/" {
