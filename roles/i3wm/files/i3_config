@@ -60,6 +60,7 @@ bindsym XF86AudioMute        exec "amixer -q sset Master,0 toggle"
 bindsym $mod+F1 exec google-chrome --profile-directory="Default"
 bindsym $mod+F2 exec google-chrome --profile-directory="Profile 1"
 bindsym $mod+i exec "i3-msg 'workspace IDE; exec $ide'"
+bindsym $mod+n exec /home/tiste/.bin/toggle-vpn
 bindsym $mod+Shift+i move container to workspace IDE
 bindsym $mod+F4 exec lxterminal
 bindsym $mod+F9 exec "i3-msg 'workspace Web; exec /usr/bin/google-chrome'"

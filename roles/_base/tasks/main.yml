@@ -3,6 +3,12 @@
     - fast
     - proxy
 
+# cannot suffix with .vault while https://github.com/ansible/ansible/issues/18767 not released
+- include_vars: common-secure-vars.yml
+  tags:
+    - fast
+    - proxy
+
 - name: Check that the current machine is a Fedora 23
   assert: { that: "ansible_distribution == 'Fedora' and ansible_distribution_version == '24'" }
 

@@ -1,0 +1,22 @@
+---
+
+- name: Install openvpn
+  become: yes
+  dnf: name={{ item }} state=present
+  tags: openvpn
+  with_items:
+    - openvpn
+
+- name: copy config file
+  template: src=CloudBees.conf dest=/etc/openvpn/CloudBees.conf
+  become: yes
+  tags: fast
+
+- name: VPN Toggling script
+  copy: src=toggle-vpn dest="{{ user.home }}/.bin/toggle-vpn" mode=0744
+  tags: fast
+
+# Not doing on purpose
+#ca CloudBees/ca.crt
+#cert CloudBees/bmathus-2016.crt
+#key CloudBees/bmathus-2016.key

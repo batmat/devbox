@@ -22,6 +22,12 @@ order += "ethernet _first_"
 order += "tztime local"
 order += "battery 0"
 order += "volume master"
+order += "path_exists VPN"
+
+path_exists VPN {
+     # path exists when a VPN tunnel launched by nmcli/nm-applet is active
+     path = "/proc/sys/net/ipv4/conf/tun0"
+}
 
 wireless _first_ {
         format_up = "W(%quality @ %essid %bitrate) %ip"

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ $(systemctl is-active openvpn@CloudBees.service) == "active" ]]; then
+  echo "VPN: STOP"
+  sudo systemctl stop openvpn@CloudBees.service
+else
+  echo "VPN: START"
+  sudo systemctl start openvpn@CloudBees.service
+fi
