@@ -43,6 +43,7 @@
     - p7zip-gui
     - unrtf
     - wireshark
+    - ShellCheck
 
 - name: cache useful images
   become: yes
