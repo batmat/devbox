@@ -1,0 +1,7 @@
+---
+
+- name: Install aws-cli
+  become: yes
+  environment: "{{proxy_env}}"
+  pip: name=awscli version=1.10.38
+  tags: awscli

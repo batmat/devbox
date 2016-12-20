@@ -19,5 +19,6 @@
     - { role: fzf }
     - { role: i3wm }
     - { role: autojump }
+    - { role: aws }
 
   tasks:
