@@ -15,3 +15,6 @@ alias prez='export PS1="$ "'
 export PATH=$HOME/.bin:$PATH
 
 alias idea='~/.tools/idea/bin/idea.sh'
+
+# Natural sort of version numbers
+alias ls='ls -v'
