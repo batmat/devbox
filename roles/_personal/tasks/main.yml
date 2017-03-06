@@ -86,6 +86,7 @@
     - "xrandr-reset-LVDS.sh"
     - "brightnessctl"
     - "change-background"
+    - "searchdeadlock"
   tags:
     - perso
     - fast

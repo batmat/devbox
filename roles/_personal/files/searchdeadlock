@@ -1,0 +1,13 @@
+#!/bin/bash
+
+while true
+do
+
+  for i in $(jps| grep -v ' Jps' | cut -d' ' -f1)
+  do
+    res=$(jstack $i | grep 'Found one Java-level deadlock')
+    [ -z "$res" ] || echo "$i is deadlocked"
+  done
+
+  sleep 1
+done
