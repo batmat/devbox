@@ -36,7 +36,12 @@ alias h='history'
 alias c='clear'
 
 # removing colons from the generated path below because causes issues sometimes
-alias tmp='tmpcwd={{ tmpdir }}/$( date --iso-8601=seconds | sed -e 's/:/h/' -e 's/:/m/' -e 's/://' ); echo "Switching to tmp working dir $tmpcwd" && mkdir -p $tmpcwd && cd $tmpcwd'
+function tmp {
+  tmpcwd="{{ tmpdir }}/$( date --iso-8601=seconds | sed -e 's/:/h/' -e 's/:/m/' -e 's/://' )-$1"
+  echo "Switching to tmp working dir $tmpcwd"
+  mkdir -p "$tmpcwd"
+  cd "$tmpcwd"
+}
 
 #Buggy KDE5 Plasmashell, to restart easily
 alias kp='killall plasmashell ; nohup plasmashell >/dev/null&'
