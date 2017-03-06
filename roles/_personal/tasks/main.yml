@@ -44,6 +44,7 @@
     - unrtf
     - wireshark
     - ShellCheck
+    - xmlstarlet
 
 - name: cache useful images
   become: yes
