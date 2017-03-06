@@ -17,4 +17,4 @@ export PATH=$HOME/.bin:$PATH
 alias idea='~/.tools/idea/bin/idea.sh'
 
 # Natural sort of version numbers
-alias ls='ls -v'
+alias ls='ls -v -F --color=auto'
