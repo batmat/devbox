@@ -13,9 +13,9 @@ general {
 }
 
 order += "tztime sf"
-order += "tztime Au_Sydney"
 order += "tztime texas_austin"
 order += "tztime raleigh"
+order += "tztime Au_Sydney"
 order += "disk /"
 order += "disk /home"
 order += "wireless _first_"
