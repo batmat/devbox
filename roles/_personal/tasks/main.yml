@@ -20,7 +20,6 @@
 - name: Install personal packages
   become: yes
   dnf: name={{ item }} state=present
-  tags: pouet
   with_items:
     - grisbi
     - keepass
