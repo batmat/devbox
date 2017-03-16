@@ -87,6 +87,16 @@
     - "brightnessctl"
     - "change-background"
     - "searchdeadlock"
+    - "power-alert.sh"
   tags:
     - perso
     - fast
+
+- name: check battery and alert if too low (sometimes, I miss the status bar)
+  cron:
+    name: Alert if battery is too low
+    minute: "*"
+    job: "/home/tiste/.bin/power-alert.sh"
+  tags:
+    - fast
+    - cron
