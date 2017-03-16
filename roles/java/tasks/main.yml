@@ -10,6 +10,13 @@
   git: repo=https://github.com/gcuisinier/jenv.git  dest="{{ user.home }}/.jenv"
   environment: "{{proxy_env}}"
 
+- name: Enable JEnv plugin {{item}}
+  shell: jenv enable-plugin maven
+  with_items:
+   - maven
+   - export
+  tags: fast
+
 - name: add zshrc chunk
   template: src=zshrc-java dest="{{ user.home }}/.zshrc-chunks/java"
   tags: fast
