@@ -53,23 +53,23 @@
   become: yes
   shell: docker pull {{ item }}
   with_items:
-    - batmat/asciidoctor-prez
     - batmat/process-media
     - batmat/rotate-video
     - pashi/garmin-antfs
     - busybox
     - alpine
-    - swarm
     - jenkinsci/jenkins:latest
-    - jenkins:2.32.3
-    - jenkins:2.32.3-alpine
+    - jenkins:2.60.1
+    - jenkins:2.60.1-alpine
     - jenkins:latest # in case a new one has been published
+    - jenkins:alpine # in case a new one has been published
     - debian
-    - fedora:23
-    - fedora:24
     - fedora:25
     - fedora:latest
     - centos:7
+    #work
+    - cloudbees/jenkins-enterprise:latest
+    - cloudbees/jenkins-operations-center:latest
   register: result
   changed_when: "'Status: Image is up to date for' not in result.stdout"
   tags:
