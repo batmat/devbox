@@ -1,3 +1,6 @@
+####################
+# Media processing #
+####################
 alias process-media='docker run --rm -it -v $PWD:/photos batmat/process-media && \
                      sudo chown $(id -u):$(id -g) *'
 function rotate-video {
@@ -5,6 +8,9 @@ function rotate-video {
   sudo chown $(id -u):$(id -g) *
 }
 
+#######################
+# Random aliases
+#######################
 function trash {
   kioclient move $@ trash://
 }
@@ -15,6 +21,8 @@ alias prez='export PS1="$ "'
 export PATH=$HOME/.bin:$PATH
 
 alias idea='~/.tools/idea/bin/idea.sh'
+
+alias n="notify-send 'hiho'"
 
 # Natural sort of version numbers
 alias ls='ls -v -F --color=auto'
