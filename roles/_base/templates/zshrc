@@ -106,7 +106,7 @@ fi
 # TODO : Externalize and use across roles (?)
 ZSHRC_CHUNKS=~/.zshrc-chunks
 if [ -d $ZSHRC_CHUNKS ]; then
-  for zshrc_chunk in $ZSHRC_CHUNKS/*
+  for zshrc_chunk in $( ls $ZSHRC_CHUNKS/* | grep -v completion )
   do
     source $zshrc_chunk
   done
