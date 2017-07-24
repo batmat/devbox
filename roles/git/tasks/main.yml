@@ -24,7 +24,10 @@
 ##############
 # GitHub CLI
 ##############
-- { include: get-and-cache.yml, tags: github, toget:   "https://github.com/github/hub/releases/download/v2.2.1/hub-linux-amd64-2.2.1.tar.gz" }
+- { include: get-and-cache.yml,
+    toget: "https://github.com/github/hub/releases/download/v2.3.0-pre9/hub-linux-amd64-2.3.0-pre9.tgz",
+    tags: github
+  }
 
 
 - name: Check GitHub CLI install dir is present
@@ -36,4 +39,10 @@
 - name: Install GitHub CLI
   become: yes
   shell: tar xvzf {{ cached }} --strip 1 -C /opt/hub
+  tags: github
+
+- name: Install GitHub CLI zsh completion
+  get_url:
+    url: "https://raw.githubusercontent.com/github/hub/master/etc/hub.zsh_completion"
+    dest: "{{ user.home }}/.zshrc-chunks/_git_hub_zsh_completion"
   tags: github

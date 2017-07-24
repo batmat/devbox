@@ -7,7 +7,7 @@ alias b='hub browse'
 alias gr='git remote -v'
 alias reflog='git reflog --date=local'
 
-export PATH=$PATH:/opt/hub
+export PATH=$PATH:/opt/hub/bin
 
 # https://confluence.atlassian.com/bitbucketserver/permanently-authenticating-with-git-repositories-776639846.html
 # Must apparently be called each time at startup so that Git actually takes it in account ?!?
