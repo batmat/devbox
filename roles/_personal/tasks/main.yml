@@ -47,6 +47,7 @@
     - redis
     - git-extras
     - lm_sensors
+    - blueman
 
 - name: cache useful images
   become: yes
