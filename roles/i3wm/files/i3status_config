@@ -24,6 +24,13 @@ order += "tztime local"
 order += "battery 0"
 order += "volume master"
 order += "path_exists VPN"
+order += "cpu_temperature 0"
+
+cpu_temperature 0{
+        format = "%degrees°"
+        path="/sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input"
+        max_threshold=70
+}
 
 path_exists VPN {
      # path exists when a VPN tunnel launched by nmcli/nm-applet is active
