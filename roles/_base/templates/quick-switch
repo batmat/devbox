@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "quick switch disabled"
+return
 flagfile=$HOME/.quick-switch-flagfile
 flagdate=$(stat -c %X $flagfile)
 
