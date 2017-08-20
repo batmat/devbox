@@ -13,6 +13,7 @@
 	email = batmat@batmat.net
 [rebase]
 	autosquash = true
+	autostash = true
 [commit]
 	template = /home/tiste/.git_commit_template
 [credential]
