@@ -10,7 +10,7 @@ Type=notify
 # for containers run by docker
 EnvironmentFile=-/etc/sysconfig/docker
 ExecStart=
-ExecStart=/usr/bin/dockerd --storage-driver overlay {{ "--insecure-registry="+docker_internal_registry if at_work==true else "" }} -H unix:///var/run/docker.sock -H tcp://127.0.0.1:2375
+ExecStart=/usr/bin/dockerd --storage-driver overlay2 {{ "--insecure-registry="+docker_internal_registry if at_work==true else "" }} -H unix:///var/run/docker.sock -H tcp://127.0.0.1:2375
 ExecReload=/bin/kill -s HUP $MAINPID
 # Having non-zero Limit*s causes performance problems due to accounting overhead
 # in the kernel. We recommend using cgroups to do container-local accounting.
