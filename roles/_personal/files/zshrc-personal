@@ -26,3 +26,7 @@ alias n="notify-send 'hiho'"
 
 # Natural sort of version numbers
 alias ls='ls -v -F --color=auto'
+
+# Acknowledge the fact I *never* remember meld's name
+alias gdiff=meld
+alias kdiff=meld

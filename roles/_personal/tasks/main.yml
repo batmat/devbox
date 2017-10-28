@@ -48,6 +48,7 @@
     - git-extras
     - lm_sensors
     - blueman
+    - meld
 
 - name: cache useful images
   become: yes
