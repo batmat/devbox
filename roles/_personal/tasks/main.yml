@@ -92,6 +92,7 @@
     - "change-background"
     - "searchdeadlock"
     - "power-alert.sh"
+    - "check-commands-running.sh"
   tags:
     - perso
     - fast
@@ -101,6 +102,15 @@
     name: Alert if battery is too low
     minute: "*"
     job: "/home/tiste/.bin/power-alert.sh"
+  tags:
+    - fast
+    - cron
+
+- name: check processes expected to be always running
+  cron:
+    name: Check processes expected to be always running
+    minute: "*"
+    job: "/home/tiste/.bin/check-commands-running.sh"
   tags:
     - fast
     - cron
