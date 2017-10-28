@@ -1,5 +1,9 @@
 = Things to do / improve
 
+* remove /usr/bin/packer + install packer 
+* 
+*
+
 == TODO
 
 * logind - /etc/systemd/logind.conf
