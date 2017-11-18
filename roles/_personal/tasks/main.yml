@@ -71,6 +71,7 @@
     #work
     - cloudbees/jenkins-enterprise:latest
     - cloudbees/jenkins-operations-center:latest
+    - selenium/standalone-firefox-debug:2.53.1
   register: result
   changed_when: "'Status: Image is up to date for' not in result.stdout"
   tags:
