@@ -75,7 +75,6 @@
   register: result
   changed_when: "'Status: Image is up to date for' not in result.stdout"
   tags:
-    - docker
     - dockercache
 
 - name: Create custom scripts directory
