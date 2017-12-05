@@ -35,6 +35,7 @@
     - file-icons
     - language-ansible
     - minimap
+    - go-plus
   tags: atom
 
 - name: Set Atom Preferences
