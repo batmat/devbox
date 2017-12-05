@@ -32,7 +32,7 @@
     - i3wm
 
 - name: Set i3status configuration
-  copy: src=i3status_config dest={{ user.home }}/.config/i3status/config
+  template: src=i3status_config dest={{ user.home }}/.config/i3status/config
   tags:
     - i3wm
     - fast

@@ -24,6 +24,7 @@ order += "tztime local"
 order += "battery 0"
 order += "volume master"
 order += "path_exists VPN"
+order += "run_watch CP"
 order += "cpu_temperature 0"
 
 cpu_temperature 0{
@@ -35,6 +36,10 @@ cpu_temperature 0{
 path_exists VPN {
      # path exists when a VPN tunnel launched by nmcli/nm-applet is active
      path = "/proc/sys/net/ipv4/conf/tun0"
+}
+
+run_watch CP {
+        pidfile = "{{ tools.path }}/crashplan/crashplan/CrashPlanEngine.pid"
 }
 
 wireless _first_ {
