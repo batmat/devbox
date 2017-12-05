@@ -41,7 +41,7 @@
     - jq
     - moreutils
     - NetworkManager
-    - lxrandr # useful complement to xrandr to quickly set up screen for prez
+    - lxrandr # useful GUI complement to xrandr to quickly set up screen for prez
     - pavucontrol
     - recordmydesktop
     - ffmpeg
