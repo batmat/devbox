@@ -103,21 +103,17 @@
   tags:
     - perso
     - fast
-
-- name: check battery and alert if too low (sometimes, I miss the status bar)
-  cron:
-    name: Alert if battery is too low
-    minute: "*"
-    job: "/home/tiste/.bin/power-alert.sh"
-  tags:
-    - fast
     - cron
 
-- name: check processes expected to be always running
+- name: Install crontab checks
   cron:
-    name: Check processes expected to be always running
-    minute: "*"
-    job: "/home/tiste/.bin/check-commands-running.sh"
+    name:   "{{ item.name }}"
+    minute: "{{ item.minute }}"
+    job:    "{{ user.home }}/.bin/{{ item.job }}"
+  with_items:
+  - { name: 'Alert if battery is too low',                   minute: '*/3', job: 'power-alert.sh' }
+  - { name: 'Check processes expected to be always running', minute: '*/4', job: 'check-commands-running.sh' }
+  - { name: 'Reset screen if only main one is plugged in',   minute: '*/2', job: 'xrandr-reset-LVDS.sh' }
   tags:
     - fast
     - cron
