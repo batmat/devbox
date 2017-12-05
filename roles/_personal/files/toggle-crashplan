@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -euo pipefail
+
+export PATH=~/.tools/crashplan/crashplan/bin/:$PATH
+
+if [[ $( crashplan status ) == *"running." ]]; then
+  echo "CrashPlan Running: Stopping"
+  crashplan stop
+else
+  echo "CrashPlan Stopped: Starting"
+  crashplan start
+fi

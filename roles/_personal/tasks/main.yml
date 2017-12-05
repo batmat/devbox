@@ -101,6 +101,7 @@
     - "searchdeadlock"
     - "power-alert.sh"
     - "check-commands-running.sh"
+    - "toggle-crashplan"
   tags:
     - perso
     - fast
