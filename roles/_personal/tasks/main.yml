@@ -16,6 +16,13 @@
   tags:
     - fast
     - bim
+- name: Make sure some packages are absent
+  become: yes
+  dnf: name={{ item }} state=absent
+  with_items:
+    - blueman # deprecated/superseded by blueberry
+  tags:
+    - fast
 
 - name: Install personal packages
   become: yes
@@ -47,7 +54,7 @@
     - redis
     - git-extras
     - lm_sensors
-    - blueman
+    - blueberry
     - meld
 
 - name: cache useful images
