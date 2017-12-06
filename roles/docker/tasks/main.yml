@@ -93,7 +93,7 @@
 - name: check inodes usage and notify UI if below threshold
   cron:
     name: check inodes usage for /var/lib/docker
-    minute: "*"
+    minute: "*/10"
     job: "DISPLAY=:0 export INODES_LEFT=$( df --output=iavail /var/lib/docker | tail -1 ) ; /bin/bash -c \"if [ $INODES_LEFT -lt 200000 ]; then notify-send -t 2000 'WARNING: INODES NUMBER < 200k' 'Only $INODES_LEFT inodes left' ; fi\""
   tags:
     - fast
