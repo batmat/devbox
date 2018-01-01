@@ -15,6 +15,12 @@ function trash {
   kioclient move $@ trash://
 }
 
+# this function serves only one purpose: wrap gclone.sh and be able to cd to the target dir in the same call
+# which cannot be done by calling a script
+function gclone {
+  gclone.sh $@
+  cd $( PATH_ONLY_MODE=true gclone.sh $@ )
+}
 alias antfs='docker run --privileged --rm -v ~/.garmin/fitfiles:/app/data -v /dev/bus/usb:/dev/bus/usb -i -t pashi/garmin-antfs'
 alias prez='export PS1="$ "'
 

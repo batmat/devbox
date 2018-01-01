@@ -102,6 +102,7 @@
     - "power-alert.sh"
     - "check-commands-running.sh"
     - "toggle-crashplan"
+    - "gclone.sh"
   tags:
     - perso
     - fast
