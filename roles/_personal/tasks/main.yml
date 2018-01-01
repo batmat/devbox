@@ -110,7 +110,7 @@
   cron:
     name:   "{{ item.name }}"
     minute: "{{ item.minute }}"
-    job:    "{{ user.home }}/.bin/{{ item.job }}"
+    job:    "{{ user.home }}/.bin/{{ item.job }} >/dev/null"
   with_items:
   - { name: 'Alert if battery is too low',                   minute: '*/3', job: 'power-alert.sh' }
   - { name: 'Check processes expected to be always running', minute: '*/4', job: 'check-commands-running.sh' }
