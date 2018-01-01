@@ -22,6 +22,7 @@ order += "wireless _first_"
 order += "ethernet _first_"
 order += "tztime local"
 order += "battery 0"
+order += "battery full"
 order += "volume master"
 order += "path_exists VPN"
 order += "run_watch CP"
@@ -57,9 +58,16 @@ battery 0 {
         format = "%status %percentage %remaining"
         hide_seconds = "true"
         integer_battery_capacity = "true"
+        last_full_capacity = "true"
         status_full = "💯"
         status_bat = "🔋"
         status_chr = "⚇"
+}
+
+# To monitor my battery life :-\
+battery full {
+        format = "(%percentage)"
+        integer_battery_capacity = "true"
 }
 
 tztime local {
