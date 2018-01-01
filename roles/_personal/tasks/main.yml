@@ -21,8 +21,6 @@
   dnf: name={{ item }} state=absent
   with_items:
     - blueman # deprecated/superseded by blueberry
-  tags:
-    - fast
 
 - name: Install personal packages
   become: yes
