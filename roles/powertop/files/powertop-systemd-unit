@@ -1,0 +1,12 @@
+[Unit]
+Description=PowerTOP autotuner
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/powertop --auto-tune
+ExecStart=
+# this is to enable my external logitech mouse: disabling this interface just makes it unusable
+ExecStart=/bin/echo 'on' > '/sys/bus/usb/devices/1-1/power/control'
+
+[Install]
+WantedBy=multi-user.target

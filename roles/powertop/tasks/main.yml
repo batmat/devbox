@@ -1,0 +1,19 @@
+---
+
+- name: Install powertop
+  become: yes
+  dnf: name=powertop state=present
+  tags:
+    - powertop
+
+- name: Install powertop systemd conf override
+  become: yes
+  file: src=powertop-systemd-unit dest=/etc/systemd/system/powertop.service.d/override.conf
+  tags:
+    - powertop
+
+- name: Start & Enable powertop
+  become: yes
+  systemd: name=powertop state=started enabled=yes
+  tags:
+    - powertop
