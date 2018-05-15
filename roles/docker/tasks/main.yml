@@ -22,7 +22,6 @@
   yum_repository:
     name: docker-ce
     description: Docker CE repository
-    file: docker-ce.repo
     baseurl: https://download.docker.com/linux/fedora/docker-ce.repo
   tags:
     - fast
