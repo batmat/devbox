@@ -12,10 +12,9 @@ general {
         separator = "    "
 }
 
-order += "tztime sf"
-order += "tztime texas_austin"
-order += "tztime raleigh"
 order += "tztime Au_Sydney"
+order += "tztime raleigh"
+order += "tztime sf"
 order += "disk /"
 order += "disk /home"
 order += "wireless _first_"
