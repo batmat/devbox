@@ -9,7 +9,7 @@ export PATH=/bin
 export DISPLAY=:0
 
 
-export COMMANDS_TO_CHECK="rescuetime copyq"
+export COMMANDS_TO_CHECK="rescuetime copyq xautolock"
 
 notify ()
 {
