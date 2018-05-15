@@ -55,6 +55,7 @@
     - blueberry
     - meld
     - iotop
+    - java-1.8.0-openjdk-src # move into Java role?
 
 - name: cache useful images
   become: yes
