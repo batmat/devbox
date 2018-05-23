@@ -1,8 +1,26 @@
-- { include: get-and-cache.yml, toget: "https://atom.io/download/rpm" }
+---
+
+- name: Install Atom RPM key
+  become: yes
+  rpm_key:
+    state: present
+    key: https://packagecloud.io/AtomEditor/atom/gpgkey
+
+- name: Add Atom repository
+  become: yes
+  yum_repository:
+    name: atom
+    description: Atom YUM repo
+    baseurl: "https://packagecloud.io/AtomEditor/atom/el/7/$basearch/"
+    gpgkey: https://packagecloud.io/AtomEditor/atom/gpgkey
+    enabled: yes
+    gpgcheck: no
+  tags:
+    - atom
 
 - name: Install Atom Text Editor
   become: yes
-  dnf: name="{{ cached }}" state=present
+  dnf: name=atom state=present
   tags: atom
 
 - name: Configure the proxy for atom
