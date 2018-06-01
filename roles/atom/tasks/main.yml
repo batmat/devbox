@@ -54,6 +54,7 @@
     - language-ansible
     - minimap
     - go-plus
+    - vim-modeline
   tags: atom
 
 - name: Set Atom Preferences
