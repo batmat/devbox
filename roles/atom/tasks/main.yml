@@ -55,6 +55,9 @@
     - minimap
     - go-plus
     - vim-modeline
+    - language-ini
+    - sonarlint
+    - atom-cform
   tags: atom
 
 - name: Set Atom Preferences
