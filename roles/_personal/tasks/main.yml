@@ -66,19 +66,13 @@
     - pashi/garmin-antfs
     - busybox
     - alpine
-    - jenkinsci/jenkins:latest
-    - jenkins:2.60.1
-    - jenkins:2.60.1-alpine
-    - jenkins:latest # in case a new one has been published
-    - jenkins:alpine # in case a new one has been published
-    - debian
-    - fedora:25
+    - jenkins/jenkins:latest
+    - jenkins/jenkins:lts
+    - debian:latest
+    - fedora:28
     - fedora:latest
-    - centos:7
+    - centos:latest
     #work
-    - cloudbees/jenkins-enterprise:latest
-    - cloudbees/jenkins-operations-center:latest
-    - selenium/standalone-firefox-debug:2.53.1
   register: result
   changed_when: "'Status: Image is up to date for' not in result.stdout"
   tags:
