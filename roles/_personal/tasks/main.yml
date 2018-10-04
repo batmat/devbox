@@ -56,6 +56,7 @@
     - meld
     - iotop
     - java-1.8.0-openjdk-src # move into Java role?
+    - trickle # https://askubuntu.com/a/181411 bandwidth limiting (cool to test flakiness issues related to network)
 
 - name: cache useful images
   become: yes
