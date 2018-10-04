@@ -1,12 +1,20 @@
 #!/bin/bash
 
-if [ "A$1A" != "AA" ] ; then
-  feh --bg-fill $1
-  exit
+set -euo pipefail
+
+OPTIONS="--bg-max"
+if [[ $# != 0 && "A$1A" != "AA" ]] ; then
+  photo="$1"
+else
+  PHOTOS_DIR=$HOME/Dropbox/perso/backgrounds
+  photo=$(find $PHOTOS_DIR -type f -name "*JPG" -or -name "*.jpg" | shuf -n 1)
 fi
-PHOTOS_DIR=$HOME/Dropbox/perso/backgrounds
-photo=$(find $PHOTOS_DIR -type f -name "*JPG" -or -name "*.jpg" | shuf -n 1)
 
+isPortrait=$(( $( identify -format '%h %w' "$photo" | tr ' ' '-' ) > 0 ))
+if [[ $isPortrait == 1 ]] ; then
+  OPTIONS=--bg-max
+else
+  OPTIONS=--bg-fill
+fi
 echo "switching to $photo"
-
-feh --bg-fill "$photo"
+feh $OPTIONS "$photo"
