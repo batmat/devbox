@@ -97,6 +97,7 @@
     - "check-commands-running.sh"
     - "toggle-crashplan"
     - "gclone.sh"
+    - "limit-bandwidth"
   tags:
     - perso
     - fast
