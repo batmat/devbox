@@ -71,6 +71,7 @@ bindsym $mod+F12 exec "atom --new-window ~/.config/i3/config ~/.config/i3status/
 bindsym Control+$alt+l exec "$locker"
 bindsym Scroll_Lock exec "$locker"
 bindsym $mod+s exec $locker && sudo systemctl suspend
+bindsym $mod+b exec slack
 
 
 # scrot & gimp - select
