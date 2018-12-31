@@ -86,12 +86,6 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+m move right
-
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
@@ -130,6 +124,7 @@ bindsym $mod+egrave workspace 7
 bindsym $mod+underscore workspace 8
 bindsym $mod+ccedilla workspace Web
 bindsym $mod+agrave workspace IRC
+bindsym $mod+m workspace Meet
 
 # move focused container to workspace
 bindsym $mod+Shift+ampersand move container to workspace 1
@@ -142,6 +137,7 @@ bindsym $mod+Shift+egrave move container to workspace 7
 bindsym $mod+Shift+underscore move container to workspace 8
 bindsym $mod+Shift+ccedilla move container to workspace Web
 bindsym $mod+Shift+agrave move container to workspace IRC
+bindsym $mod+Shift+m move container to workspace Meet
 
 # Next/previous WS
 bindsym $alt+Tab workspace back_and_forth
