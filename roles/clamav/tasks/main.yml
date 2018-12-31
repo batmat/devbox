@@ -1,0 +1,41 @@
+- name: Install Clamav
+  become: yes
+  dnf:
+    state: present
+    name:
+      - clamav
+      - clamav-scanner
+      - clamav-scanner-systemd
+      - clamav-update
+  tags: clamav
+
+- name: Update Clamd configuration file
+  become: yes
+  copy: src=scan.conf dest=/etc/clamd.d/scan.conf
+  tags:
+    - fast
+    - clamav
+
+- name: Update ClamAV Update daemon configuration file
+  become: yes
+  copy: src=freshclam.conf dest=/etc/freshclam.conf
+  tags:
+    - fast
+    - clamav
+
+- name: Update ClamAV Virus Database by cron
+  cron:
+    name: Update ClamAV Virus DB
+    hour: "*/2" # a bit aggressive on purpose to check it works well. Will lower once confirmed OK.
+    job: "sudo freshclam"
+  tags:
+    - fast
+    - cron
+    - clamav
+
+- name: start and configure Docker
+  service: name=clamav@scan state=started
+  become: yes
+  tags:
+    - fast
+    - cron

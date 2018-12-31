@@ -22,5 +22,6 @@
     - { role: aws }
     - { role: openvpn }
     - { role: powertop }
+    - { role: clamav }
 
   tasks:
