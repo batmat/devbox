@@ -1,13 +1,14 @@
 - name: Check possibly conflicting or obsolete docker packages are *not* installed
   become: yes
-  dnf: name={{ item }} state=absent
-  with_items:
-    - docker
-    - docker.io
-    - docker-common
-    - docker-selinux
-    - docker-engine-selinux
-    - docker-engine
+  dnf:
+    state: absent
+    name:
+      - docker
+      - docker.io
+      - docker-common
+      - docker-selinux
+      - docker-engine-selinux
+      - docker-engine
   tags:
     - fast
     - docker
