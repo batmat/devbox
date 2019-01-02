@@ -1,41 +1,20 @@
-- name: Install Clamav
-  become: yes
-  dnf:
-    state: present
-    name:
-      - clamav
-      - clamav-scanner
-      - clamav-scanner-systemd
-      - clamav-update
-  tags: clamav
-
-- name: Update Clamd configuration file
-  become: yes
-  copy: src=scan.conf dest=/etc/clamd.d/scan.conf
+- name: Create ClamAV reports directory
+  file:
+    path: "{{user.home}}/.clamav"
+    state: directory
   tags:
     - fast
     - clamav
 
-- name: Update ClamAV Update daemon configuration file
-  become: yes
-  copy: src=freshclam.conf dest=/etc/freshclam.conf
-  tags:
-    - fast
-    - clamav
-
-- name: Update ClamAV Virus Database by cron
+- name: ClamAV scan for /home
   cron:
     name: Update ClamAV Virus DB
-    hour: "*/2" # a bit aggressive on purpose to check it works well. Will lower once confirmed OK.
-    job: "sudo freshclam"
+    special_time: "daily"
+    # TODO: add --rm when confirmed to work
+    job: "docker run -v clamav-db:/var/lib/clamav -v $HOME:/toscan:ro batmat/clamscan -i > {{user.home}}/.clamav/REPORT-HOME.$( date --iso-8601=minutes )"
   tags:
     - fast
     - cron
     - clamav
 
-- name: start and configure Docker
-  service: name=clamav@scan state=started
-  become: yes
-  tags:
-    - fast
-    - cron
+# TODO: scan the whole disk (excluding home, given already done above)
