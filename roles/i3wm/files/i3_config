@@ -195,7 +195,7 @@ exec --no-startup-id /home/tiste/.bin/change-background
 exec --no-startup-id rescuetime
 exec --no-startup-id dropbox start
 exec --no-startup-id ~/.tools/crashplan/crashplan/bin/crashplan start
-exec --no-startup-id xautolock -time 8 -locker $locker &
+exec --no-startup-id xautolock -time 10 -locker $locker &
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
 exec --no-startup-id copyq
