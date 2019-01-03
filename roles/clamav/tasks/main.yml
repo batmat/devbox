@@ -12,7 +12,14 @@
     special_time: "daily"
     # TODO: add --rm when confirmed to work
     # TODO: likely, add CPU constraints too soon
-    job: "docker run -v clamav-db:/var/lib/clamav -v $HOME:/toscan:ro batmat/clamscan -i --exclude-dir=/home/tiste/Photos > {{user.home}}/.clamav/REPORT-HOME.$( date --iso-8601=minutes )"
+    job: >
+          docker run
+          -v clamav-db:/var/lib/clamav
+          -v $HOME:/toscan:ro
+          batmat/clamscan
+          -i
+          --exclude-dir=/home/tiste/Photos
+          > {{user.home}}/.clamav/REPORT-HOME.$( date --iso-8601=minutes )
   tags:
     - fast
     - cron
@@ -24,7 +31,12 @@
     special_time: "weekly"
     # TODO: add --rm when confirmed to work
     # TODO: likely, add CPU constraints too soon
-    job: "docker run -v clamav-db:/var/lib/clamav -v $HOME/Photos:/toscan:ro batmat/clamscan -i > {{user.home}}/.clamav/REPORT-PHOTOS.$( date --iso-8601=minutes )"
+    job: >
+          docker run
+          -v clamav-db:/var/lib/clamav
+          -v $HOME/Photos:/toscan:ro batmat/clamscan
+          -i
+          > {{user.home}}/.clamav/REPORT-PHOTOS.$( date --iso-8601=minutes )
   tags:
     - fast
     - cron
@@ -36,7 +48,12 @@
     special_time: "weekly"
     # TODO: add --rm when confirmed to work
     # TODO: likely, add CPU constraints too soon
-    job: "docker run -v clamav-db:/var/lib/clamav -v /:/toscan:ro batmat/clamscan -i --exclude-dir=/home/tiste/ > {{user.home}}/.clamav/REPORT-ROOT.$( date --iso-8601=minutes )"
+    job: >
+          docker run
+          -v clamav-db:/var/lib/clamav
+          -v /:/toscan:ro batmat/clamscan
+          -i --exclude-dir=/home/tiste/
+          > {{user.home}}/.clamav/REPORT-ROOT.$( date --iso-8601=minutes )
   tags:
     - fast
     - cron
