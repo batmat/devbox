@@ -14,6 +14,7 @@
     # TODO: likely, add CPU constraints too soon
     job: >
           docker run
+          --name clamscan-home-$RANDOM
           -v clamav-db:/var/lib/clamav
           -v $HOME:/toscan:ro
           batmat/clamscan
@@ -33,6 +34,7 @@
     # TODO: likely, add CPU constraints too soon
     job: >
           docker run
+          --name clamscan-pix-$RANDOM
           -v clamav-db:/var/lib/clamav
           -v $HOME/Photos:/toscan:ro batmat/clamscan
           -i
@@ -50,6 +52,7 @@
     # TODO: likely, add CPU constraints too soon
     job: >
           docker run
+          --name clamscan-root-$RANDOM
           -v clamav-db:/var/lib/clamav
           -v /:/toscan:ro batmat/clamscan
           -i --exclude-dir=/home/tiste/
