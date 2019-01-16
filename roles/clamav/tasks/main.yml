@@ -18,7 +18,7 @@
           -v clamav-db:/var/lib/clamav
           -v $HOME:/toscan:ro
           batmat/clamscan
-          -i
+          -iv
           --exclude-dir=/home/tiste/Photos
           --exclude-dir=/home/tiste/.m2/repository
           > {{user.home}}/.clamav/REPORT-HOME.$( date --iso-8601=minutes )
@@ -38,7 +38,7 @@
           --name clamscan-pix-$RANDOM
           -v clamav-db:/var/lib/clamav
           -v $HOME/Photos:/toscan:ro batmat/clamscan
-          -i
+          -iv
           > {{user.home}}/.clamav/REPORT-PHOTOS.$( date --iso-8601=minutes )
   tags:
     - fast
@@ -57,7 +57,7 @@
           -v clamav-db:/var/lib/clamav
           -v $HOME/.m2/repository:/toscan:ro
           batmat/clamscan
-          -i
+          -iv
           --exclude-dir=/home/tiste/Photos
           --exclude-dir=/home/tiste/.m2/repository
           > {{user.home}}/.clamav/REPORT-HOME.$( date --iso-8601=minutes )
@@ -77,7 +77,8 @@
           --name clamscan-root-$RANDOM
           -v clamav-db:/var/lib/clamav
           -v /:/toscan:ro batmat/clamscan
-          -i --exclude-dir=/home/tiste/
+          -iv
+          --exclude-dir=/home/tiste/
           > {{user.home}}/.clamav/REPORT-ROOT.$( date --iso-8601=minutes )
   tags:
     - fast
