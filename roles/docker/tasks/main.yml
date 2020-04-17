@@ -80,7 +80,9 @@
   become: yes
   tags: fast
 
-- { include: get-and-cache.yml, toget: "https://github.com/docker/machine/releases/download/v0.7.0/docker-machine-Linux-x86_64" }
+- import_tasks: get-and-cache.yml
+  vars:
+    toget:  "https://github.com/docker/machine/releases/download/v0.7.0/docker-machine-Linux-x86_64"
 
 - name: Install Docker machine
   become: yes

@@ -24,11 +24,10 @@
 ##############
 # GitHub CLI
 ##############
-- { include: get-and-cache.yml,
-    toget: "https://github.com/github/hub/releases/download/v2.3.0-pre9/hub-linux-amd64-2.3.0-pre9.tgz",
-    tags: github
-  }
-
+- import_tasks: get-and-cache.yml
+  vars:
+    toget: "https://github.com/github/hub/releases/download/v2.3.0-pre9/hub-linux-amd64-2.3.0-pre9.tgz"
+  tags: github
 
 - name: Check GitHub CLI install dir is present
   become: yes

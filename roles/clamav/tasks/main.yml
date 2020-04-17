@@ -19,8 +19,8 @@
           -v $HOME:/toscan:ro
           batmat/clamscan
           -iv
-          --exclude-dir=/home/tiste/Photos
-          --exclude-dir=/home/tiste/.m2/repository
+          --exclude-dir=/toscan/Photos
+          --exclude-dir=/toscan/.m2/repository
           > {{user.home}}/.clamav/$( date --iso-8601=minutes )-REPORT-HOME
   tags:
     - fast
@@ -58,8 +58,6 @@
           -v $HOME/.m2/repository:/toscan:ro
           batmat/clamscan
           -iv
-          --exclude-dir=/home/tiste/Photos
-          --exclude-dir=/home/tiste/.m2/repository
           > {{user.home}}/.clamav/$( date --iso-8601=minutes )-REPORT-M2REPO
   tags:
     - fast
@@ -78,7 +76,7 @@
           -v clamav-db:/var/lib/clamav
           -v /:/toscan:ro batmat/clamscan
           -iv
-          --exclude-dir=/home/tiste/
+          --exclude-dir=/toscan/home/tiste/
           > {{user.home}}/.clamav/$( date --iso-8601=minutes )-REPORT-ROOT
   tags:
     - fast

@@ -1,4 +1,6 @@
-- { include: get-and-cache.yml, toget: "http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3083_x64.tar.bz2" }
+- import_tasks: get-and-cache.yml
+  vars:
+    toget: "http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3083_x64.tar.bz2"
 
 - name: Uncompress Sublime under the tools directory
   unarchive: src="{{ cached }}" dest="{{ tools.path }}" creates={{ tools.path }}/sublime_text_3
